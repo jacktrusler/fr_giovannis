@@ -1,8 +1,11 @@
-
+import WeeklyScheduler from "../components/WeeklyScheduler";
 
 function barbers() {
   return (
-  <div>Here you shall place some barbers no cap</div>
+    <div>
+      <div>Here you shall place some barbers no cap</div>
+      <WeeklyScheduler />
+    </div>
   )
 }
 

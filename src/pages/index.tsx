@@ -27,10 +27,6 @@ export default Home;
 
 export async function getServerSideProps(context:any) {
   const { db, client } = await connectToDatabase()
-  console.log(client)  
-  console.log('--------------------')
-  console.log(db)
-
 
   return {
     props: { },

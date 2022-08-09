@@ -33,6 +33,8 @@
   overflow: hidden;
 }
 
+.week-container {
+}
 @media screen and (max-width: 600px) {
   .logo {
   }
