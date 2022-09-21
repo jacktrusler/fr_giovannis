@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { signOut } from 'next-auth/react'
+//import { signOut } from 'next-auth/react'
 
 type TechnologyCardProps = {
   name: string;
@@ -36,7 +36,7 @@ function HomePage() {
           objectFit="cover"
         ></Image>
       </div>
-        <button onClick={() => signOut()}>Sign Out</button>
+        {/* <button onClick={() => signOut()}>Sign Out</button> */}
       <div
         style={{ backgroundColor: 'rgba(255,165,0,0.2)' }}
         className="flex flex-col items-center bg-orange-200 border-white border-double border-t-8"

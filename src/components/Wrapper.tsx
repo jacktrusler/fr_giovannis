@@ -8,7 +8,7 @@ const Wrapper = ({ children }: any) => {
       <Head>
         <title>Giovanni's</title>
         <meta name="description" content="Haircut, scheduling, styling needs" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/barber-pole.svg" />
       </Head>
 
       <Header />

@@ -16,12 +16,12 @@ const Header = () => {
           </div>
         </Link>
         <div className="flex items-end">
-          <div className="p-4 h-12 text-3xl flex items-end text-orange-200 ">
+          <div className="pb-4 h-12 text-3xl flex items-end text-orange-200 ">
             <Link href="/barbers">
-              <span className="hover-underline-animation mx-5">Barbers</span>
+              <span className="hover-underline-animation ml-2 mr-5">Barbers</span>
             </Link>
-            <Link href="/schedule">
-              <span className="hover-underline-animation mx-5">Schedule</span>
+            <Link href="/pricing">
+              <span className="hover-underline-animation ml-3">Pricing</span>
             </Link>
           </div>
         </div>

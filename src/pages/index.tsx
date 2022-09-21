@@ -1,23 +1,22 @@
 import type { NextPage } from 'next';
 import HomePage from "../components/HomePage";
-import SignInPage from "../components/SignInPage"
-import { useSession } from 'next-auth/react';
 import {connectToDatabase} from '../utils/mongodb'
+// import SignInPage from '../components/SignInPage';
+// import { useSession } from 'next-auth/react';
 
 const Home: NextPage = ({}) => {
-  const { data: session } = useSession();
-  console.log(session)
+  //const { data: session } = useSession();
 
-  function Component() {
-    if (session) {
-      return <HomePage />  
-    }
-    return <SignInPage />
-  }
+  // function Component() {
+  //   if (session) {
+  //     return <HomePage />  
+  //   }
+  //   return <SignInPage />
+  // }
 
   return (
     <div>
-      <Component />
+      <HomePage />
     </div>
   );
 };
@@ -25,10 +24,10 @@ const Home: NextPage = ({}) => {
 
 export default Home;
 
-export async function getServerSideProps(context:any) {
-  const { db, client } = await connectToDatabase()
+// export async function getServerSideProps(context:any) {
+//   const { db, client } = await connectToDatabase()
 
-  return {
-    props: { },
-  }
-}
+//   return {
+//     props: { },
+//   }
+// }
