@@ -4,7 +4,7 @@ import {connectToDatabase} from '../utils/mongodb'
 // import SignInPage from '../components/SignInPage';
 // import { useSession } from 'next-auth/react';
 
-const Home: NextPage = ({}) => {
+const Home: NextPage<{barbers: string[]}> = ({barbers}: {barbers: string[]}) => {
   //const { data: session } = useSession();
 
   // function Component() {
@@ -16,7 +16,7 @@ const Home: NextPage = ({}) => {
 
   return (
     <div>
-      <HomePage />
+      <HomePage barbers={barbers}/>
     </div>
   );
 };

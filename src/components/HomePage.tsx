@@ -1,30 +1,26 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import cutLogo from '../../public/theCutLogo.png'
 //import { signOut } from 'next-auth/react'
 
 type TechnologyCardProps = {
   name: string;
   description: string;
-  about: string;
+  color?: "red" | "blue" | "orange"
 };
 
-const TechnologyCard = ({ name, description, about }: TechnologyCardProps) => {
+const TechnologyCard = ({ name, description, color="orange" }: TechnologyCardProps) => {
   return (
-    <section className="flex flex-col justify-center p-10 bg-orange-300 duration-500 border-2 border-gray-500 rounded shadow-xl motion-safe:hover:scale-105">
-      <h2 className="text-lg text-gray-700">{name}</h2>
-      <p className="text-sm text-gray-600">{description}</p>
-      <a
-        className="mt-3 text-sm underline text-violet-500 decoration-dotted underline-offset-2"
-        href={about}
-        target="_blank"
-        rel="noreferrer"
-      >
-        About Page
-      </a>
-    </section>
+    <Link href={`/barbers#${name}`}>
+      <section className={`hover:cursor-pointer flex flex-col justify-center p-10 bg-${color}-200 duration-500 border-2 border-gray-500 rounded shadow-xl motion-safe:hover:scale-105`}>
+        <h2 className={`text-2xl text-${color}-600`}>{name}</h2>
+        <p className="text-md text-gray-600">{description}</p>
+      </section>
+    </Link>
   );
 };
 
-function HomePage() {
+function HomePage({barbers}: {barbers: string[]}) {
    
   return(
     <>
@@ -38,28 +34,40 @@ function HomePage() {
       </div>
         {/* <button onClick={() => signOut()}>Sign Out</button> */}
       <div
-        style={{ backgroundColor: 'rgba(255,165,0,0.2)' }}
-        className="flex flex-col items-center bg-orange-200 border-white border-double border-t-8"
+        className="pb-8 flex flex-col items-center bg-orange-200 border-white border-double border-t-8"
       >
-        <div className="text-3xl pt-8">Meet the Barbers</div>
-        <div className="text-2xl pt-4">Click to check their availability</div>
+        <div className="text-3xl pt-8">
+          <Link href="/barbers">Meet the Barbers</Link>
+        </div>
         <div className="grid  justify-center gap-3 pt-3 my-3 text-center md:grid-cols-1 lg:w-2/5">
           <TechnologyCard
-            name="Giovanni"
+            name={barbers[0]}
             description="The Man with the plan"
-            about="https://www.typescriptlang.org/"
+            color="red"
           />
           <TechnologyCard
-            name="Dan"
+            name={barbers[1]}
             description="Barber Extordinaire"
-            about="https://nextjs.org/"
+            color="blue"
           />
           <TechnologyCard
-            name="Other Guy"
-            description="who's name i'm forgetting"
-            about="https://tailwindcss.com/"
+            name={barbers[2]}
+            description="Barber, motocyclist, gamer"
+            color="red"
           />
         </div>
+      </div>
+
+      <div className="w-full h-52 md:h-40 flex flex-col items-center border-t-8 border-double border-white bg-black">
+        <div className="text-2xl text-center p-4 text-white">Download theCut app to schedule an appointment</div>
+        <a target="_blank" rel="noopener noreferrer" href="https://www.thecut.co/" className='relative overflow-hidden rounded-lg h-20 w-40 mb-2 border-4 border-white'>
+        <Image
+          className="opacity-100"
+          src={cutLogo}
+          layout='fill'
+          objectFit='cover'
+        ></Image>
+        </a>
       </div>
     </>
   )

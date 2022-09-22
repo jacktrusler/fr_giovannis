@@ -5,8 +5,6 @@ import { connectToDatabase } from '../utils/mongodb';
 
 export default function admin({barbers}: any) {
   const [selectedBarber, setSelectedBarber] = useState({})
-  console.log(selectedBarber)
-  console.log(barbers)
 
   return (
     <div>
