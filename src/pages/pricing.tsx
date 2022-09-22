@@ -11,7 +11,7 @@ export default function pricing(): ReactElement {
         <div className="text-center text-2xl">Select a Barber to see their pricing</div>
         <div className="flex justify-center w-100 pt-4">
 
-          <a className="mx-4 flex-col bg-red-200 white items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
+          <a className="mx-4 flex-col bg-red-200 items-center rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
             <div className="relative overflow-hidden border border-slate-200 h-32 rounded-lg w-24">
                     <Image 
                       src={"https://picsum.photos/301/300"} 
@@ -25,7 +25,7 @@ export default function pricing(): ReactElement {
             </div>
           </a>
 
-          <a className="mx-4 flex-col bg-blue-200 items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
+          <a className="mx-4 flex-col bg-blue-200 items-center rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
             <div className="relative overflow-hidden border border-slate-200 h-32 rounded-lg w-24">
                     <Image 
                       src={"https://picsum.photos/300/300"} 
@@ -39,7 +39,7 @@ export default function pricing(): ReactElement {
             </div>
           </a>
 
-          <a className="mx-4 flex-col bg-red-200 items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
+          <a className="mx-4 flex-col bg-red-200 items-center rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
             <div className="relative overflow-hidden border border-slate-200 h-32 rounded-lg w-24">
                     <Image 
                       src={"https://picsum.photos/302/300"} 
