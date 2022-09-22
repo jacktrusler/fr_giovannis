@@ -4,9 +4,9 @@ import {PriceCard} from "../components/PriceCard"
 import cutLogo from "../../public/theCutLogo.png"
 
 export default function pricing(): ReactElement {
-  const barbers = ["Dan", "Sean", "Gio"]
+  const barbers = ["Gio","Dan", "Sean"]
   return (
-    <div className="w-100 min-h-screen bg-orange-200 flex-col items-center">
+    <div className="w-100 bg-orange-200 flex-col items-center">
       <div className="w-100 pt-4 flex-col justify-center items-center">
         <div className="text-center text-2xl">Select a Barber to see their pricing</div>
         <div className="flex justify-center w-100 pt-4">
@@ -21,7 +21,7 @@ export default function pricing(): ReactElement {
                     </Image>
             </div>
             <div className="flex justify-between w-full leading-normal">
-                <h5 className="pl-2 mb-2 text-center text-xl font-bold tracking-tight text-red-600 dark:text-white">{barbers[2]}</h5>
+                <h5 className="pl-2 mb-2 text-center text-xl font-bold tracking-tight text-red-600 dark:text-white">{barbers[0]}</h5>
             </div>
           </a>
 
@@ -35,7 +35,7 @@ export default function pricing(): ReactElement {
                     </Image>
             </div>
             <div className="flex justify-between w-full leading-normal">
-                <h5 className="pl-2 mb-2 text-center text-xl font-bold tracking-tight text-blue-600 dark:text-white">{barbers[0]}</h5>
+                <h5 className="pl-2 mb-2 text-center text-xl font-bold tracking-tight text-blue-600 dark:text-white">{barbers[1]}</h5>
             </div>
           </a>
 
@@ -49,7 +49,7 @@ export default function pricing(): ReactElement {
                     </Image>
             </div>
             <div className="flex justify-between w-full leading-normal">
-                <h5 className="pl-2 mb-2 text-center text-xl font-bold tracking-tight text-red-600 dark:text-white">{barbers[1]}</h5>
+                <h5 className="pl-2 mb-2 text-center text-xl font-bold tracking-tight text-red-600 dark:text-white">{barbers[2]}</h5>
             </div>
           </a>
 
@@ -116,6 +116,7 @@ export default function pricing(): ReactElement {
           ></Image>
         </a>
       </div>
+
     </div>
   )
 }
