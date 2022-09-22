@@ -21,7 +21,7 @@ export default function pricing(): ReactElement {
                     </Image>
             </div>
             <div className="flex justify-between w-full leading-normal">
-                <h5 className="pl-2 mb-2 text-center text-xl font-bold tracking-tight text-red-600 dark:text-white">{barbers[0]}</h5>
+                <h5 className="pl-2 mb-2 text-center text-xl font-bold tracking-tight text-red-600">{barbers[0]}</h5>
             </div>
           </a>
 
@@ -35,7 +35,7 @@ export default function pricing(): ReactElement {
                     </Image>
             </div>
             <div className="flex justify-between w-full leading-normal">
-                <h5 className="pl-2 mb-2 text-center text-xl font-bold tracking-tight text-blue-600 dark:text-white">{barbers[1]}</h5>
+                <h5 className="pl-2 mb-2 text-center text-xl font-bold tracking-tight text-blue-600">{barbers[1]}</h5>
             </div>
           </a>
 
@@ -49,7 +49,7 @@ export default function pricing(): ReactElement {
                     </Image>
             </div>
             <div className="flex justify-between w-full leading-normal">
-                <h5 className="pl-2 mb-2 text-center text-xl font-bold tracking-tight text-red-600 dark:text-white">{barbers[2]}</h5>
+                <h5 className="pl-2 mb-2 text-center text-xl font-bold tracking-tight text-red-600">{barbers[2]}</h5>
             </div>
           </a>
 
@@ -107,7 +107,7 @@ export default function pricing(): ReactElement {
       </div>
 
       <div className="w-full h-52 md:h-40 flex flex-col items-center border-t-8 border-double border-white bg-black">
-        <p className="text-2xl p-4 text-white">Download theCut app to schedule an appointment</p>
+        <p className="text-2xl text-center p-4 text-white">Download theCut app to schedule an appointment</p>
         <a target="_blank" rel="noopener noreferrer" href="https://www.thecut.co/" className='relative overflow-hidden rounded-lg h-20 w-40 mb-2 border-4 border-white'>
           <Image
             src={cutLogo}
