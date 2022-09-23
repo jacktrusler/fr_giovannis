@@ -7,7 +7,6 @@ import '../styles/globals.css';
 import '../styles/index.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import { barberData } from '../data/barberData';
-import { BarberData } from '../data/barberData';
 
 function MyApp({ Component, pageProps: {session, ...pageProps} }: AppProps) {
   return (

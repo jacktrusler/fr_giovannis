@@ -21,7 +21,7 @@ export function Barber(props: BarberProps): ReactElement {
   } = props
 
   return (
-      <div id={name} className={`flex-wrap justify-center bg-${color}-200 rounded-xl p-8 border-white border-double border-t-8`}>
+      <div id={name} className={`flex-wrap pt-8 pb-4 justify-center bg-gray-900 `}>
         <div className="w-100 flex justify-center">
           <div className="rounded-xl overflow-hidden border-4 border-white md:h-80 md:w-80 h-48 w-48 relative"> 
               <Image 
@@ -34,17 +34,17 @@ export function Barber(props: BarberProps): ReactElement {
         </div>
 
       <div className="flex w-100 justify-center">
-        <div className="pt-6 md:p-8 text-center space-y-4" style={{width: 600}}>
+        <div className="pt-4 text-center space-y-4" style={{width: 600}}>
           <blockquote>
-            <p className="text-lg font-medium">
+            <p className="text-xl text-blue-100">
               {description}
             </p>
           </blockquote>
           <figcaption className="font-medium">
-            <div className={`text-2xl text-${color}-600`}>
+            <div className={`text-3xl text-${color}-600`}>
               {name}
             </div>
-            <div className="text-xl text-slate-700">
+            <div className="text-2xl text-blue-100 text-slate-700">
               {title}
             </div>
           </figcaption>

@@ -1,8 +1,8 @@
 export interface BarberData {
-  pictureSrc?: string;
-  name?: string;
-  description?: string;
-  title?: string;
+  name: string;
+  pictureSrc: string;
+  description: string;
+  title: string;
 }
 
 export const barberData: BarberData[] = [
