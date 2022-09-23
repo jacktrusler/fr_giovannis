@@ -17,10 +17,14 @@ type TechnologyCardProps = {
 const TechnologyCard = ({ name, description, setBarberName, color="orange" }: TechnologyCardProps) => {
   return (
       <section 
-        className={`button-transition hover:cursor-pointer flex flex-col justify-center p-10 bg-red-300 duration-500 border-2 border-blue-100 rounded shadow-xl motion-safe:hover:scale-110 motion-safe:hover:bg-gray-100`}
+        className={`
+          button-transition hover:cursor-pointer flex flex-col justify-center p-10 duration-500 
+          border-2 border-gray-300 rounded shadow-xl motion-safe:hover:scale-110
+          bg-gradient-to-b from-white to-gray-300`
+        }
         onClick={() => setBarberName(name)}
       >
-        <h2 className={`text-2xl text-red-600`}>{name}</h2>
+        <h2 className={`text-2xl text-black`}>{name}</h2>
         <p className="text-md text-gray-600">{description}</p>
       </section>
   );
@@ -44,7 +48,7 @@ function HomePage({barbers}: {barbers: BarberData[]}) {
         {/* <button onClick={() => signOut()}>Sign Out</button> */}
         <div className="anchor" id="meet-the-barbers"></div> 
       <div
-        className="pb-8 flex flex-col items-center bg-orange-200 border-white border-double border-t-4 bg-gray-900"
+        className="pb-8 flex flex-col items-center bg-orange-200 border-white border-double border-t-4 bg-gray-700"
       >
         <div  className="text-3xl text-white pt-8">
           <span >Meet the Barbers</span>
@@ -77,12 +81,12 @@ function HomePage({barbers}: {barbers: BarberData[]}) {
           pictureSrc={clickedBarber.pictureSrc}
         />
       ) : (
-        <div className="pt-8 pb-4  w-100 flex justify-center flex-wrap justify-around bg-gray-900">
+        <div className="pt-8 pb-8  w-100 flex justify-center flex-wrap justify-around bg-gray-700">
           {barbers.map((barber) => {
            return (
            <div>
              <div 
-                className="rounded-xl hover:cursor-pointer overflow-hidden border-4 border-white md:h-80 md:w-80 h-48 w-48 relative"
+                className="rounded-xl hover:cursor-pointer overflow-hidden md:h-80 md:w-80 h-48 w-48 relative"
                 onClick={()=>setBarberName(barber.name)}
               > 
                 <Image 
@@ -100,7 +104,7 @@ function HomePage({barbers}: {barbers: BarberData[]}) {
         )
       }
         <Pricing />
-      <div className="w-full h-44 md:h-36 flex flex-col items-center pt-4 bg-black border-t-2 border-white">
+      <div className="w-full h-44 md:h-36 flex flex-col items-center pt-4 bg-gray-900 border-t-2 border-white">
         <a target="_blank" rel="noopener noreferrer" href="https://www.thecut.co/" className='relative overflow-hidden rounded-lg h-20 w-40 border-4 border-white'>
         <Image
           src={cutLogo}

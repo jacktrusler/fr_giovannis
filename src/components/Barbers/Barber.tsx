@@ -2,8 +2,7 @@ import type { ReactElement } from "react";
 import Image from "next/image";
 
 interface BarberProps {
-  pictureSrc?: string;
-  color?: "red" | "orange" | "blue";
+ pictureSrc?: string;
   name?: string;
   description?: string;
   title?: string;
@@ -13,7 +12,6 @@ interface BarberProps {
 export function Barber(props: BarberProps): ReactElement {
   const {
     pictureSrc="https://picsum.photos/400/400", 
-    color = "red", 
     name = "Gio", 
     description="No desription provided",
     title="Barber",
@@ -21,9 +19,9 @@ export function Barber(props: BarberProps): ReactElement {
   } = props
 
   return (
-      <div id={name} className={`flex-wrap pt-8 pb-4 justify-center bg-gray-900 `}>
+      <div id={name} className={`flex-wrap pt-8 pb-8 justify-center bg-gray-700 `}>
         <div className="w-100 flex justify-center">
-          <div className="rounded-xl overflow-hidden border-4 border-white md:h-80 md:w-80 h-48 w-48 relative"> 
+          <div className="rounded-xl overflow-hidden md:h-80 md:w-80 h-48 w-48 relative shadow-2xl"> 
               <Image 
                 src={pictureSrc} 
                 layout="fill" 
@@ -33,21 +31,22 @@ export function Barber(props: BarberProps): ReactElement {
           </div>
         </div>
 
+
       <div className="flex w-100 justify-center">
-        <div className="pt-4 text-center space-y-4" style={{width: 600}}>
+        <div className="pt-4 text-center" style={{width: 600}}>
+        <div className={`text-3xl text-blue-600`}>
+          {name}
+        </div>
+          <figcaption className="font-medium">
+            <div className="text-2xl text-blue-100 text-slate-700">
+              {title}
+            </div>
+          </figcaption>
           <blockquote>
             <p className="text-xl text-blue-100">
               {description}
             </p>
           </blockquote>
-          <figcaption className="font-medium">
-            <div className={`text-3xl text-${color}-600`}>
-              {name}
-            </div>
-            <div className="text-2xl text-blue-100 text-slate-700">
-              {title}
-            </div>
-          </figcaption>
         </div>
       </div>
       {children}
