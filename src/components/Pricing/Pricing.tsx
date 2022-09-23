@@ -14,7 +14,7 @@ export default function Pricing(): ReactElement {
         <div className="flex justify-center w-100">
 
         <div className="anchor" id="pricing"></div> 
-          <a className="mx-4 flex-col bg-gray-200 items-center rounded-lg border shadow-2xl md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
+          <a className="custom-shadow mx-4 flex-col bg-gray-200 items-center rounded-lg border shadow-2xl md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
             <div className="relative overflow-hidden border border-slate-200 h-32 rounded-lg w-24">
                     <Image 
                       src={"https://picsum.photos/301/300"} 
@@ -28,7 +28,7 @@ export default function Pricing(): ReactElement {
             </div>
           </a>
 
-          <a className="mx-4 flex-col bg-blue-200 items-center rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
+          <a className="custom-shadow mx-4 flex-col bg-blue-200 items-center rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
             <div className="relative overflow-hidden border border-slate-200 h-32 rounded-lg w-24">
                     <Image 
                       src={"https://picsum.photos/300/300"} 
@@ -42,7 +42,7 @@ export default function Pricing(): ReactElement {
             </div>
           </a>
 
-          <a className="mx-4 flex-col bg-gray-200 items-center rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
+          <a className="custom-shadow mx-4 flex-col bg-gray-200 items-center rounded-lg border shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
             <div className="relative overflow-hidden border border-slate-200 h-32 rounded-lg w-24">
                     <Image 
                       src={"https://picsum.photos/302/300"} 
@@ -60,7 +60,7 @@ export default function Pricing(): ReactElement {
         </div>
       </div>
 
-        <div className="pt-4 text-center text-white text-2xl">Select a Barber to see available cuts</div>
+        <div className="pt-8 text-center text-white text-2xl">Select a Barber to see available cuts</div>
 
         <div className="flex justify-center w-100">
         <table className="border-gray-700 border-2 shadow-2xl">

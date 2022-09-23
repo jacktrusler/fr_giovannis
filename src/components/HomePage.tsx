@@ -53,7 +53,7 @@ function HomePage({barbers}: {barbers: BarberData[]}) {
         <div  className="text-3xl text-white pt-8">
           <span >Meet the Barbers</span>
         </div>
-        <div className="grid  justify-center gap-3 pt-3 my-3 text-center md:grid-cols-1 lg:w-2/5">
+        <div className="grid custom-shadow justify-center gap-3 pt-3 my-3 text-center md:grid-cols-1 lg:w-2/5">
           <TechnologyCard
             name={barbers[0].name}
             description="The Man with the plan"
@@ -86,7 +86,7 @@ function HomePage({barbers}: {barbers: BarberData[]}) {
            return (
            <div>
              <div 
-                className="rounded-xl hover:cursor-pointer overflow-hidden md:h-80 md:w-80 h-48 w-48 relative"
+                className="rounded-xl custom-shadow hover:cursor-pointer overflow-hidden md:h-80 md:w-80 h-48 w-48 relative"
                 onClick={()=>setBarberName(barber.name)}
               > 
                 <Image 
@@ -96,7 +96,7 @@ function HomePage({barbers}: {barbers: BarberData[]}) {
                   >
                 </Image>
             </div>
-            <div className='text-white text-2xl text-center'>{barber.name}</div>
+            <div className='text-white text-2xl pt-8 text-center'>{barber.name}</div>
           </div>
               )
           })}
