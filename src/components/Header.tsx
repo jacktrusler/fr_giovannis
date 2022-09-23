@@ -4,19 +4,21 @@ import Image from 'next/image'
 const Header = () => {
   return (
     <div className="flex">
-      <div className="flex justify-center bg-red-500 h-32 border-white border-double border-b-8 w-full">
-        <Link href="/">
-          <div className="items-self-end hover-underline-animation mt-2 h-24">
-            <Image 
-              src="/barber-pole.svg" 
-              width={60} 
-              height={100}
-              >
-            </Image>
+      <div className="flex fixed justify-around bg-black pb-2 h-24 border-white border-double border-b-4 w-full">
+        <div className="flex items-end hover:cursor-pointer">
+          <Image 
+            src="/barber-pole.svg" 
+            width={60} 
+            height={74}
+            >
+          </Image>
+          <div className='flex hover-underline-animation hidden text-3xl items-end text-white'>
+            <span className='hidden sm:block'>Giovannis Barbershop</span>
           </div>
-        </Link>
+        </div>
+
         <div className="flex items-end">
-          <div className="pb-4 h-12 text-3xl flex items-end text-orange-200 ">
+          <div className="h-12 text-3xl flex items-end text-red-500 ">
             <Link href="/barbers">
               <span className="hover-underline-animation ml-2 mr-5">Barbers</span>
             </Link>

@@ -1,10 +1,13 @@
 import type { NextPage } from 'next';
 import HomePage from "../components/HomePage";
-import {connectToDatabase} from '../utils/mongodb'
+import { BarberData } from '../data/barberData';
+// import {connectToDatabase} from '../utils/mongodb'
 // import SignInPage from '../components/SignInPage';
 // import { useSession } from 'next-auth/react';
 
-const Home: NextPage<{barbers: string[]}> = ({barbers}: {barbers: string[]}) => {
+const Home: NextPage<{barbers: BarberData[]}> = (
+  {barbers}: {barbers: BarberData[]}
+  ) => {
   //const { data: session } = useSession();
 
   // function Component() {

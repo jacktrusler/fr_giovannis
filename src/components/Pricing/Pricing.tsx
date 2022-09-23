@@ -1,6 +1,6 @@
 import Image from "next/image"
 import type { ReactElement } from "react"
-import {PriceCard} from "../components/PriceCard"
+import {PriceCard} from "./PriceCard"
 import cutLogo from "../../public/theCutLogo.png"
 
 export default function pricing(): ReactElement {

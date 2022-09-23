@@ -1,6 +1,6 @@
 .bg-wrap {
   position: relative;
-  height: 60vh;
+  height: 80vh;
   width: 100%;
   overflow: hidden;
   z-index: -1;
@@ -22,7 +22,7 @@
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: orange;
+  background-color: white;
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }
@@ -35,6 +35,16 @@
 
 .week-container {
 }
+
+/* .button-transition { */
+/*   background-color: black; */
+/* } */
+
+/* .button-transition:hover { */
+/*   background-color: coral; */
+/*   animation: 3s ease; */
+/* } */
+
 @media screen and (max-width: 600px) {
   .logo {
   }

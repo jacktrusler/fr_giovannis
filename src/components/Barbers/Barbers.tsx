@@ -1,6 +1,6 @@
 //import WeeklyScheduler from "../components/WeeklyScheduler";
 import Image from "next/image";
-import {Barber} from "../components/Barber";
+import {Barber} from "./Barber";
 import cutLogo from "../../public/theCutLogo.png"
 
 function barbers({barbers}: {barbers: string[]}) {

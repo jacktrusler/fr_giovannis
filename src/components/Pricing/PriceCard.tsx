@@ -1,5 +1,4 @@
 import type { ReactElement } from "react";
-import Image from "next/image";
 
 interface PriceProps{
   price?: string;

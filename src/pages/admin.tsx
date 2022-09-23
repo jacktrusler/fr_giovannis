@@ -1,10 +1,11 @@
-import SignUpForm from '../components/SignUpForm';
-import AdminSchedule from '../components/AdminSchedule';
+import SignUpForm from '../components/SignIn/SignUpForm';
+import AdminSchedule from '../components/Admin/AdminSchedule';
 import { useState } from 'react';
 import { connectToDatabase } from '../utils/mongodb';
 
-export default function admin({barbers}: any) {
+export default function admin({barbersDatabase}: any) {
   const [selectedBarber, setSelectedBarber] = useState({})
+  console.log(barbersDatabase)
 
   return (
     <div>
@@ -16,9 +17,9 @@ export default function admin({barbers}: any) {
 
       <div className='border-b-2'>
         <h2 className="text-2xl">Select Barber</h2>
-        {barbers.map((barber: any, index: number) => {
+        {[1,2,3].map((barber: any, index: number) => {
           return (
-            <div key={barber._id}>
+            <div key={barbersDatabase._id}>
               <button 
                 className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg"
                 onClick={() => setSelectedBarber(barber)}>
@@ -51,7 +52,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
-      barbers: JSON.parse(JSON.stringify(barbers))
+      barbersDatabase: JSON.parse(JSON.stringify(barbers))
     }
   }
   
