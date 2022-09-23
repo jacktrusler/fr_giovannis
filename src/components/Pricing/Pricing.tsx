@@ -7,7 +7,6 @@ import { dansPrices } from "../../data/priceData"
 export default function Pricing(): ReactElement {
   const pricingBarbers = ["Gio","Dan", "Sean"]
   const [selected, setSelected] = useState("");
-  console.log(dansPrices.priceData)
   return (
     <div className="w-100 pb-16 bg-gray-700 flex-col items-center">
       <div className="w-100 pt-16 flex-col justify-center items-center border-white border-double border-t-4 w-full">

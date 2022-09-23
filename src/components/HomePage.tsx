@@ -10,11 +10,10 @@ import Pricing from './Pricing/Pricing';
 type TechnologyCardProps = {
   name: string;
   description: string;
-  color?: "red" | "blue" | "orange"
   setBarberName: Dispatch<SetStateAction<string>>;
 };
 
-const TechnologyCard = ({ name, description, setBarberName, color="orange" }: TechnologyCardProps) => {
+const TechnologyCard = ({ name, description, setBarberName}: TechnologyCardProps) => {
   return (
       <section 
         className={`
@@ -57,19 +56,16 @@ function HomePage({barbers}: {barbers: BarberData[]}) {
           <TechnologyCard
             name={barbers[0].name}
             description="The Man with the plan"
-            color="red"
             setBarberName={setBarberName}
           />
           <TechnologyCard
             name={barbers[1].name}
             description="Barber Extordinaire"
-            color="blue"
             setBarberName={setBarberName}
           />
           <TechnologyCard
             name={barbers[2].name}
             description="Barber, motocyclist, gamer"
-            color="red"
             setBarberName={setBarberName}
           />
         </div>
