@@ -5,9 +5,9 @@ import { BarberData } from '../data/barberData';
 // import SignInPage from '../components/SignInPage';
 // import { useSession } from 'next-auth/react';
 
-const Home: NextPage<{barbers: BarberData[]}> = (
-  {barbers}: {barbers: BarberData[]}
-  ) => {
+const Home: NextPage<{ barbers: BarberData[] }> = (
+  { barbers }: { barbers: BarberData[] }
+) => {
   //const { data: session } = useSession();
 
   // function Component() {
@@ -19,7 +19,7 @@ const Home: NextPage<{barbers: BarberData[]}> = (
 
   return (
     <div>
-      <HomePage barbers={barbers}/>
+      <HomePage barbers={barbers} />
     </div>
   );
 };
