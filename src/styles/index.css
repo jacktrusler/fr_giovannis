@@ -16,6 +16,13 @@
   visibility: none;
 }
 
+.anchor-pricing {
+  display: block;
+  position: relative;
+  top: -110px;
+  visibility: none;
+}
+
 .hover-underline-animation {
   display: inline-block;
   position: relative;
