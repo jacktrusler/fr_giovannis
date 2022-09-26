@@ -54,6 +54,7 @@ export default function Pricing(): ReactElement {
               <h5 className="pl-2 mb-2 text-center text-xl font-bold tracking-tight text-gray-600">{pricingBarbers[2]}</h5>
             </div>
           </a>
+            <a></a>
 
 
         </div>
@@ -66,9 +67,9 @@ export default function Pricing(): ReactElement {
           <tbody>
             {dansPrices.priceData.map((priceCard) => (
               <tr key={priceCard.haircut} className="w-100 bg-gray-700 flex justify-center">
-                <PriceCard
+                <PriceCard 
                   haircut={priceCard.haircut}
-                  description={priceCard.description}
+                  description={priceCard.description} 
                   price={priceCard.price}
                 />
               </tr>
