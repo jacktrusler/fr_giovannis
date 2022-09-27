@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Script from 'next/script';
 import HomePage from "../components/HomePage";
 import { BarberData } from '../data/barberData';
 // import {connectToDatabase} from '../utils/mongodb'

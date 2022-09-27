@@ -1,5 +1,4 @@
 import SignUpForm from '../components/SignIn/SignUpForm';
-import AdminSchedule from '../components/Admin/AdminSchedule';
 import { FormEvent, useState } from 'react';
 import { connectToDatabase } from '../utils/mongodb';
 import { dansPrices } from '../data/priceData';
@@ -9,7 +8,6 @@ import {PriceCardEditable} from '../components/Pricing/PriceCardEditable';
 export default function admin({ barbersDatabase }: any) {
   const [selectedBarber, setSelectedBarber] = useState({})
   const [edit, setEdit] = useState(false)
-
 
   return (
     <div>
@@ -21,9 +19,9 @@ export default function admin({ barbersDatabase }: any) {
 
       <div className='border-b-2'>
         <h2 className="text-2xl">Select Barber</h2>
-        {barbersDatabase.map((barber: any, index: number) => {
+        {[1,2,3].map((barber: any, index: number) => {
           return (
-            <div key={barbersDatabase?._id}>
+            <div key={index}>
               <button 
                 className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg"
                 onClick={() => setSelectedBarber(barber)}>
@@ -35,10 +33,10 @@ export default function admin({ barbersDatabase }: any) {
         )}
       </div>
 
-      <div className='border-b-2'>
-        <h2 className="text-2xl">Schedule Times</h2>
-        <AdminSchedule />
-      </div>
+      {/* <div className='border-b-2'> */}
+      {/*   <h2 className="text-2xl">Schedule Times</h2> */}
+      {/*   <AdminSchedule /> */}
+      {/* </div> */}
 
       <div>
         <h2 className="text-2xl">Barber Prices</h2>
@@ -62,7 +60,7 @@ export default function admin({ barbersDatabase }: any) {
           </div>
 
           <div>
-            <h1 className='text-4xl'>Displayed on page</h1>
+            <h1 className='text-4xl'>Edit</h1>
             <table className="border-gray-700 border-2 shadow-2xl">
               <tbody>
                 {dansPrices.priceData.map((priceCard) => (
@@ -85,7 +83,7 @@ export default function admin({ barbersDatabase }: any) {
 }
 
 // export async function getServerSideProps() {
-//   const { db  } = await connectToDatabase();
+//   const { db } = await connectToDatabase();
 
 //   const barbers = await db
 //     .collection("admin_barbers")
