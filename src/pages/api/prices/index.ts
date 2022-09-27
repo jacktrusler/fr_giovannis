@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { connectMongoDB } from "../../../mongoDB/conn"
-import { getBarbers } from "../../../mongoDB/controller"
+import { deletePrices, getPrices, postPrices, putPrices } from "../../../mongoDB/controller"
 
 type Data = {
   method?: any;
@@ -17,25 +17,16 @@ export default function handler(
 
   switch(method) {
     case'GET':
-      getBarbers(req, res);
+      getPrices(req, res);
       break;
     case'POST':
-      res.status(200).json({ 
-        method,
-        name: 'POST request'
-      })
+      postPrices(req, res);
       break;
     case'PUT':
-      res.status(200).json({ 
-        method,
-        name: 'PUT request'
-      })
+      putPrices(req, res);
       break;
     case'DELETE':
-      res.status(200).json({ 
-        method,
-        name: 'DELETE request'
-      })
+      deletePrices(req, res);
       break;
     default:
       res.setHeader("Allow", ['GET', 'POST', 'PUT', 'DELETE']);

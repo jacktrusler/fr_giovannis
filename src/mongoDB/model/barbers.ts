@@ -1,8 +1,9 @@
 import { Schema, models, model } from 'mongoose'
 
-const priceSchema = new Schema({
-  barber: String,
-  priceData: String,
+const pricesSchema = new Schema({
+  haircut: String,
+  description: String,
+  price: String,
 })
 
-export const Prices = models.Price || model('Price', priceSchema)
+export const Prices = models.Prices || model('prices', pricesSchema)
