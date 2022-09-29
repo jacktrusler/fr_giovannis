@@ -1,26 +1,25 @@
 import { ReactElement, useState } from "react";
 import { PriceData } from '../../data/priceData' 
+import axios from 'axios'
 
-interface PriceProps{
-  price?: string;
-  haircut?: string;
-  description?: string;
-}
-
-export function PriceCardEditable(props: PriceProps): ReactElement {
+export function PriceCardEditable(props: PriceData): ReactElement {
   const {
+    _id="0",
     price = "$20",
     haircut = "shave",
     description="No desription provided",
   } = props
 
   const [priceCard, setPriceCard] = useState<PriceData>({
+    _id,
     price,
     haircut,
     description,
   })
 
-  function submitChanges(){}
+  async function submitChanges(){
+    const data = await axios.put(`http://localhost:3000/api/prices/?priceId=${_id}`, priceCard)
+  }
 
   return (
         <td className="flex w-96 bg-gray-600 shadow-xl mb-1 rounded">

@@ -1,9 +1,12 @@
 import Image from 'next/image';
 import cutLogo from '../../public/theCutLogo.png'
 import { Barber } from './Barbers/Barber';
-import { Dispatch, SetStateAction, useMemo, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import { BarberData } from '../data/barberData';
 import Pricing from './Pricing/Pricing';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootState} from '../features/store';
+import {fetchPrices} from '../features/prices/pricesSlice';
 //import { signOut } from 'next-auth/react'
 
 type TechnologyCardProps = {
@@ -34,7 +37,15 @@ function HomePage({ barbers }: { barbers: BarberData[] }) {
     barbers.filter((barber: BarberData) => barber.name === barberName)[0],
     [barberName]);
 
-  console.log(barbers)
+  const pricesStatus = useSelector((state: RootState) => state.prices.status)
+  const allPrices = useSelector((state: RootState) => state.prices.allPrices)
+  const dispatch = useDispatch() as any;
+
+  useEffect(() => {
+    if (pricesStatus === 'idle') {
+      dispatch(fetchPrices())
+    }
+  }, [])
 
   return (
     <>
@@ -102,7 +113,7 @@ function HomePage({ barbers }: { barbers: BarberData[] }) {
         </div>
       )
       }
-      <Pricing />
+      <Pricing allPrices={allPrices}/>
       <div className="w-full h-44 md:h-36 flex flex-col items-center pt-4 bg-gray-900 border-t-2 border-white">
         <a target="_blank" rel="noopener noreferrer" href="https://www.thecut.co/" className='relative overflow-hidden rounded-lg h-20 w-40 border-4 border-white'>
           <Image

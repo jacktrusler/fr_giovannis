@@ -1,7 +1,7 @@
 import {PriceData} from "../data/priceData"
-import { Prices } from "./model/barbers"
+import { Prices } from "./model/prices"
 
-//GET: http://localhost:3000/api/barbers
+//GET: http://localhost:3000/api/prices
 export async function getPrices(req: any, res: any) {
   try {
     const prices = await Prices.find({})
@@ -13,7 +13,7 @@ export async function getPrices(req: any, res: any) {
   }  
 }
 
-//GET: http://localhost:3000/api/barbers/?priceId=id
+//GET: http://localhost:3000/api/prices/?priceId=id
 //params KEY priceId VALUE id
 export async function getSinglePrice(req: any, res: any) {
   try {
@@ -28,7 +28,7 @@ export async function getSinglePrice(req: any, res: any) {
   }  
 }
 
-//POST: http://localhost:3000/api/barbers
+//POST: http://localhost:3000/api/prices
 export async function postPrices(req: any, res: any) {
   try {
     const priceData = req.body
@@ -42,7 +42,7 @@ export async function postPrices(req: any, res: any) {
   }  
 }
 
-//PUT: http://localhost:3000/api/barbers/?priceId=id
+//PUT: http://localhost:3000/api/prices/?priceId=id
 //params KEY priceId VALUE id
 export async function putPrices(req: any, res: any) {
   try {
@@ -59,7 +59,7 @@ export async function putPrices(req: any, res: any) {
   }  
 }
 
-//DELETE: http://localhost:3000/api/barbers/?priceId=id
+//DELETE: http://localhost:3000/api/prices/?priceId=id
 export async function deletePrices(req: any, res: any) {
   try {
     const {priceId} = req.query;

@@ -6,4 +6,4 @@ const pricesSchema = new Schema({
   price: String,
 })
 
-export const Prices = models.Prices || model('prices', pricesSchema)
+export const Prices = models.prices || model('prices', pricesSchema)

@@ -1,10 +1,11 @@
 import Image from "next/image"
 import { ReactElement, useState } from "react"
 import { PriceCard } from "./PriceCard"
-import { dansPrices } from "../../data/priceData"
+import { dansPrices, PriceData } from "../../data/priceData"
 
 
-export default function Pricing(): ReactElement {
+export default function Pricing({allPrices}: {allPrices: PriceData[]}): ReactElement {
+  console.log(allPrices)
   const pricingBarbers = ["Gio", "Dan", "Sean"]
   const [selected, setSelected] = useState("");
   return (
@@ -65,9 +66,10 @@ export default function Pricing(): ReactElement {
       <div className="flex justify-center w-100">
         <table className="border-gray-700 border-2 shadow-2xl">
           <tbody>
-            {dansPrices.priceData.map((priceCard) => (
-              <tr key={priceCard.haircut} className="w-100 bg-gray-700 flex justify-center">
+            {allPrices.map((priceCard: PriceData) => (
+              <tr key={priceCard._id} className="w-100 bg-gray-700 flex justify-center">
                 <PriceCard 
+                  _id={priceCard._id}
                   haircut={priceCard.haircut}
                   description={priceCard.description} 
                   price={priceCard.price}
