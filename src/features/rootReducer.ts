@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import pricesReducer from '../features/prices/pricesSlice'
+import barbersReducer from '../features/barbers/barbersSlice'
 
 export default combineReducers({
-    prices: pricesReducer,
+    barbers: barbersReducer,
 })
 

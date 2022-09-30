@@ -1,29 +1,24 @@
-import SignUpForm from '../components/SignIn/SignUpForm';
+import SignUpForm from '../components/Admin/SignUpForm';
 import { useState, useEffect } from 'react';
 import { PriceCard } from '../components/Pricing/PriceCard';
 import {PriceCardEditable} from '../components/Pricing/PriceCardEditable';
 import {useDispatch, useSelector} from 'react-redux'
-import { fetchPrices } from '../features/prices/pricesSlice';
+import { fetchBarbers } from '../features/barbers/barbersSlice';
 import {RootState} from '../features/store';
-import axios from 'axios';
 
 export default function admin() {
   const [selectedBarber, setSelectedBarber] = useState({})
   const [modalOpen, setModalOpen] = useState(false)
 
-  const pricesStatus = useSelector((state: RootState) => state.prices.status)
-  const allPrices = useSelector((state: RootState) => state.prices.allPrices)
+  const pricesStatus = useSelector((state: RootState) => state.barbers.status)
+  const allBarbers = useSelector((state: RootState) => state.barbers.allBarbers)
   const dispatch = useDispatch() as any;
 
   useEffect(() => {
     if (pricesStatus === 'idle') {
-      dispatch(fetchPrices())
+      dispatch(fetchBarbers())
     }
   }, [])
-
-  async function addPrice(){
-    const data = await axios.post(`http://localhost:3000/api/prices`, priceCard)
-  }
 
   return (
     <div>
@@ -62,16 +57,16 @@ export default function admin() {
             <h1 className='text-4xl'>Displayed on page</h1>
             <table className="border-gray-700 border-2 shadow-2xl mr-8">
               <tbody>
-                {allPrices.map((priceCard) => (
-                  <tr key={priceCard._id} className="w-100 bg-gray-700 flex justify-center">
-                    <PriceCard 
-                      _id={priceCard._id}
-                      haircut={priceCard.haircut}
-                      description={priceCard.description} 
-                      price={priceCard.price}
-                      />
-                  </tr>
-                ))}
+                {/* {allBarbers.map((priceCard: any) => ( */}
+                {/*   <tr key={priceCard._id} className="w-100 bg-gray-700 flex justify-center"> */}
+                {/*     <PriceCard */} 
+                {/*       _id={priceCard._id} */}
+                {/*       haircut={priceCard.haircut} */}
+                {/*       description={priceCard.description} */} 
+                {/*       price={priceCard.price} */}
+                {/*       /> */}
+                {/*   </tr> */}
+                {/* ))} */}
               </tbody>
             </table>
           </div>
@@ -80,18 +75,18 @@ export default function admin() {
             <h1 className='text-4xl'>Edit</h1>
             <table className="border-gray-700 border-2 shadow-2xl">
               <tbody>
-                {allPrices.map((priceCard) => (
-                  <tr key={priceCard._id} className="w-100 bg-gray-700 flex justify-center">
-                    <PriceCardEditable 
-                      _id={priceCard._id}
-                      haircut={priceCard.haircut}
-                      description={priceCard.description} 
-                      price={priceCard.price}
-                      />
-                  </tr>
-                ))}
+                {/* {allBarbers.map((priceCard: any) => ( */}
+                {/*   <tr key={priceCard._id} className="w-100 bg-gray-700 flex justify-center"> */}
+                {/*     <PriceCardEditable */} 
+                {/*       _id={priceCard._id} */}
+                {/*       haircut={priceCard.haircut} */}
+                {/*       description={priceCard.description} */} 
+                {/*       price={priceCard.price} */}
+                {/*       /> */}
+                {/*   </tr> */}
+                {/* ))} */}
                 <tr>
-                  <td onClick={addPrice} className="flex flex-col items-center w-96 h-16">
+                  <td className="flex flex-col items-center w-96 h-16">
                     <div className='w-60 text-center h-8'>Add another price</div>
                     <i className='fa-solid fa-2xl pt-2 text-green-500 fa-plus-circle'></i>
                   </td>

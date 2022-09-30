@@ -5,7 +5,6 @@ import { dansPrices, PriceData } from "../../data/priceData"
 
 
 export default function Pricing({allPrices}: {allPrices: PriceData[]}): ReactElement {
-  console.log(allPrices)
   const pricingBarbers = ["Gio", "Dan", "Sean"]
   const [selected, setSelected] = useState("");
   return (

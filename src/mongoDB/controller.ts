@@ -1,40 +1,39 @@
-import {PriceData} from "../data/priceData"
-import { Prices } from "./model/prices"
+import { Barbers } from "./model/barbers"
 
-//GET: http://localhost:3000/api/prices
-export async function getPrices(req: any, res: any) {
+//GET: http://localhost:3000/api/barbers
+export async function getBarbers(req: any, res: any) {
   try {
-    const prices = await Prices.find({})
+    const barbers = await Barbers.find({})
 
-    if(!prices) return res.status(404).json({error: "Data not found."})
-    res.status(200).json(prices)
+    if(!barbers) return res.status(404).json({error: "Data not found."})
+    res.status(200).json(barbers)
   } catch {
     res.status(404).json( {error: "Error While Fetching Data"})
   }  
 }
 
-//GET: http://localhost:3000/api/prices/?priceId=id
-//params KEY priceId VALUE id
-export async function getSinglePrice(req: any, res: any) {
+//GET: http://localhost:3000/api/barbers/?barberId=id
+//params KEY barberId VALUE id
+export async function getSingleBarber(req: any, res: any) {
   try {
-    const {priceId} = req.query;
+    const {barberId} = req.query;
 
-    if(priceId){
-      const price = await Prices.findById(priceId)
-      return res.status(200).json(price)
+    if(barberId){
+      const barber = await Barbers.findById(barberId)
+      return res.status(200).json(barber)
     }
   } catch {
     res.status(404).json( {error: "Error While Fetching Data"})
   }  
 }
 
-//POST: http://localhost:3000/api/prices
-export async function postPrices(req: any, res: any) {
+//POST: http://localhost:3000/api/barbers
+export async function postBarbers(req: any, res: any) {
   try {
-    const priceData = req.body
-    if (!priceData) return res.status(404).json( {error: "Data not provided!"} )
+    const barberData = req.body
+    if (!barberData) return res.status(404).json( {error: "Data not provided!"} )
 
-    Prices.create(priceData, function(_: any, data: PriceData) {
+    Barbers.create(barberData, function(_: any, data: any) {
       return res.status(200).json(data)
     })
   } catch {
@@ -42,16 +41,16 @@ export async function postPrices(req: any, res: any) {
   }  
 }
 
-//PUT: http://localhost:3000/api/prices/?priceId=id
-//params KEY priceId VALUE id
-export async function putPrices(req: any, res: any) {
+//PUT: http://localhost:3000/api/barbers/?barberId=id
+//params KEY barberId VALUE id
+export async function putBarbers(req: any, res: any) {
   try {
-    const {priceId} = req.query;
-    const priceData = req.body;
+    const {barberId} = req.query;
+    const barberData = req.body;
 
-    if (priceId && priceData){
-      await Prices.findByIdAndUpdate(priceId, priceData);
-      return res.status(200).json(priceData)
+    if (barberId && barberData){
+      await Barbers.findByIdAndUpdate(barberId, barberData);
+      return res.status(200).json(barberData)
     }
     return res.status(404).json( {error: "Data not provided!"} )
   } catch {
@@ -59,16 +58,16 @@ export async function putPrices(req: any, res: any) {
   }  
 }
 
-//DELETE: http://localhost:3000/api/prices/?priceId=id
-export async function deletePrices(req: any, res: any) {
+//DELETE: http://localhost:3000/api/barbers/?barberId=id
+export async function deleteBarbers(req: any, res: any) {
   try {
-    const {priceId} = req.query;
+    const {barberId} = req.query;
 
-    if (priceId) {
-      const price = await Prices.findByIdAndDelete(priceId) 
-      return res.status(200).json({ deleted: priceId })
+    if (barberId) {
+      const barber = await Barbers.findByIdAndDelete(barberId) 
+      return res.status(200).json({ deleted: barberId })
     }
-    return res.status(404).json( {error: "PriceID not provided!"} )
+    return res.status(404).json( {error: "BarberID not provided!"} )
   } catch {
     res.status(404).json( {error: "Error While Fetching Data"})
   }  

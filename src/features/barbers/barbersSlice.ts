@@ -1,22 +1,22 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import {BarberPrices, PriceData} from "../../data/priceData";
+import {PriceData} from "../../data/priceData";
 
-interface ReduxPricesState {
-  allPrices: PriceData[];
+interface ReduxBarbersState {
+  allBarbers: any;
   status: string;
   error: string | undefined;
 }
 
-const initialState: ReduxPricesState  = {
-  allPrices: [],
+const initialState: ReduxBarbersState  = {
+  allBarbers: [],
   status: 'idle',
   error: '',
 }
 
-export const fetchPrices = createAsyncThunk('prices/fetchPrices', async (_, {rejectWithValue}) => {
+export const fetchBarbers = createAsyncThunk('prices/fetchBarbers', async (_, {rejectWithValue}) => {
   try {
-    const response = await axios.get('http://localhost:3000/api/prices')
+    const response = await axios.get('http://localhost:3000/api/barbers')
     return response.data
   } 
   catch (err) {
@@ -31,14 +31,15 @@ const pricesSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(fetchPrices.pending, (state) => {
+      .addCase(fetchBarbers.pending, (state) => {
         state.status = 'loading'
       })
-      .addCase(fetchPrices.fulfilled, (state, action) => {
+      .addCase(fetchBarbers.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        state.allPrices = action.payload
+        console.log(action.payload)
+        state.allBarbers = action.payload
       })
-      .addCase(fetchPrices.rejected, (state, action) => {
+      .addCase(fetchBarbers.rejected, (state, action) => {
         state.status = 'failed'
         if (action.payload) {
           state.error = action.payload as string
