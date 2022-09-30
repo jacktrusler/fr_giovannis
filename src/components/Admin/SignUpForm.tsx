@@ -1,6 +1,8 @@
 import axios from "axios";
+import {useState} from "react";
 
 function SignUpForm() {
+  const [openToast, setOpenToast] = useState(false)
 
   async function addBarber(e:any) {
     e.preventDefault()
@@ -11,11 +13,29 @@ function SignUpForm() {
       email: form.email.value
     }
     const data = await axios.post('http://localhost:3000/api/barbers/', postData)
+    if (data.status === 200) {
+      setOpenToast(true)
+      if (document.getElementById('barber-form') !== null) {
+        const barberForm = document.getElementById('barber-form') as HTMLFormElement;
+        barberForm.reset()
+      }
+    }
   } 
+
+  function CustomToast({duration, text}: {duration:number; text:string; }) {
+    setTimeout(
+      () => setOpenToast(false), 
+      duration
+    )
+    if (!openToast) {
+      return <></>
+    } 
+    return <div>{text}</div>
+  }
 
   return(
     <div className="block p-6 rounded-lg shadow-lg bg-orange-200 max-w-md">
-    <form onSubmit={addBarber}>
+    <form id='barber-form' onSubmit={addBarber}>
       <div className="grid grid-cols-2 gap-4">
         <div className="form-group mb-6">
           <input 
@@ -63,6 +83,8 @@ function SignUpForm() {
         transition
         duration-150
         ease-in-out"/>
+
+        {CustomToast({duration: 2000, text: "Barber has been added!"})}
     </form>
   </div>
   )

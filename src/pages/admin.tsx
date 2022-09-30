@@ -25,18 +25,18 @@ export default function admin() {
       <h2 className="border-b-2 text-2xl mt-28">Giovanni's Admin Page</h2>
       <div className='border-b-2'>
         <h2 className="text-2xl">Add/Remove Barber</h2>
-        <SignUpForm addBarber={"Add Barber"} />
+        <SignUpForm />
       </div>
 
       <div className='border-b-2'>
         <h2 className="text-2xl">Select Barber</h2>
-        {[1,2,3].map((barber: any, index: number) => {
+        {allBarbers.map((barber: any, index: number) => {
           return (
             <div key={index}>
               <button 
                 className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg"
                 onClick={() => setSelectedBarber(barber)}>
-                {index + 1}. {barber.firstName}
+                {index + 1}. {barber.name}
               </button>
             </div>
           )
