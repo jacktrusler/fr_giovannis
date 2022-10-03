@@ -5,10 +5,10 @@ import {PriceCardEditable} from '../components/Pricing/PriceCardEditable';
 import {useDispatch, useSelector} from 'react-redux'
 import { fetchBarbers } from '../features/barbers/barbersSlice';
 import {RootState} from '../features/store';
+import {BarbersScheme, PriceScheme} from '../mongoDB/model/barbers';
 
 export default function admin() {
-  const [selectedBarber, setSelectedBarber] = useState({})
-  const [modalOpen, setModalOpen] = useState(false)
+  const [selectedBarber, setSelectedBarber] = useState<BarbersScheme>()
 
   const pricesStatus = useSelector((state: RootState) => state.barbers.status)
   const allBarbers = useSelector((state: RootState) => state.barbers.allBarbers)
@@ -20,6 +20,7 @@ export default function admin() {
     }
   }, [])
 
+  console.log(selectedBarber)
   return (
     <div>
       <h2 className="border-b-2 text-2xl mt-28">Giovanni's Admin Page</h2>
@@ -30,7 +31,7 @@ export default function admin() {
 
       <div className='border-b-2'>
         <h2 className="text-2xl">Select Barber</h2>
-        {allBarbers.map((barber: any, index: number) => {
+        {allBarbers.map((barber: BarbersScheme, index: number) => {
           return (
             <div key={index}>
               <button 
@@ -57,16 +58,16 @@ export default function admin() {
             <h1 className='text-4xl'>Displayed on page</h1>
             <table className="border-gray-700 border-2 shadow-2xl mr-8">
               <tbody>
-                {/* {allBarbers.map((priceCard: any) => ( */}
-                {/*   <tr key={priceCard._id} className="w-100 bg-gray-700 flex justify-center"> */}
-                {/*     <PriceCard */} 
-                {/*       _id={priceCard._id} */}
-                {/*       haircut={priceCard.haircut} */}
-                {/*       description={priceCard.description} */} 
-                {/*       price={priceCard.price} */}
-                {/*       /> */}
-                {/*   </tr> */}
-                {/* ))} */}
+                {selectedBarber?.prices.map((price: PriceScheme) => (
+                  <tr key={price._id} className="w-100 bg-gray-700 flex justify-center">
+                    <PriceCard 
+                      _id={price._id}
+                      haircut={price.haircut}
+                      description={price.description} 
+                      price={price.price}
+                      />
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
@@ -75,16 +76,18 @@ export default function admin() {
             <h1 className='text-4xl'>Edit</h1>
             <table className="border-gray-700 border-2 shadow-2xl">
               <tbody>
-                {/* {allBarbers.map((priceCard: any) => ( */}
-                {/*   <tr key={priceCard._id} className="w-100 bg-gray-700 flex justify-center"> */}
-                {/*     <PriceCardEditable */} 
-                {/*       _id={priceCard._id} */}
-                {/*       haircut={priceCard.haircut} */}
-                {/*       description={priceCard.description} */} 
-                {/*       price={priceCard.price} */}
-                {/*       /> */}
-                {/*   </tr> */}
-                {/* ))} */}
+                {selectedBarber?.prices.map((price: PriceScheme) => {
+                  return (
+                  <tr key={price._id} className="w-100 bg-gray-700 flex justify-center">
+                    <PriceCardEditable 
+                      _id={price._id}
+                      haircut={price.haircut}
+                      description={price.description} 
+                      price={price.price}
+                      />
+                  </tr>
+                )
+                })}
                 <tr>
                   <td className="flex flex-col items-center w-96 h-16">
                     <div className='w-60 text-center h-8'>Add another price</div>

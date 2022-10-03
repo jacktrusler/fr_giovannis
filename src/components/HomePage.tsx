@@ -6,7 +6,7 @@ import { BarberData } from '../data/barberData';
 import Pricing from './Pricing/Pricing';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../features/store';
-import {fetchPrices} from '../features/prices/pricesSlice';
+import {fetchBarbers} from '../features/barbers/barbersSlice';
 //import { signOut } from 'next-auth/react'
 
 type TechnologyCardProps = {
@@ -37,13 +37,13 @@ function HomePage({ barbers }: { barbers: BarberData[] }) {
     barbers.filter((barber: BarberData) => barber.name === barberName)[0],
     [barberName]);
 
-  const pricesStatus = useSelector((state: RootState) => state.prices.status)
-  const allPrices = useSelector((state: RootState) => state.prices.allPrices)
+  const pricesStatus = useSelector((state: RootState) => state.barbers.status)
+  const allPrices = useSelector((state: RootState) => state.barbers.allBarbers)
   const dispatch = useDispatch() as any;
 
   useEffect(() => {
     if (pricesStatus === 'idle') {
-      dispatch(fetchPrices())
+      dispatch(fetchBarbers())
     }
   }, [])
 
