@@ -6,9 +6,12 @@ import {useDispatch, useSelector} from 'react-redux'
 import { fetchBarbers } from '../features/barbers/barbersSlice';
 import {RootState} from '../features/store';
 import {BarbersScheme, PriceScheme} from '../mongoDB/model/barbers';
+import axios from 'axios';
+import { PriceCardModal } from '../components/Pricing/PriceCardModal';
 
 export default function admin() {
   const [selectedBarber, setSelectedBarber] = useState<BarbersScheme>()
+  const [anotherPrice, setAnotherPrice] = useState<boolean>(false)
 
   const pricesStatus = useSelector((state: RootState) => state.barbers.status)
   const allBarbers = useSelector((state: RootState) => state.barbers.allBarbers)
@@ -20,7 +23,21 @@ export default function admin() {
     }
   }, [])
 
-  console.log(selectedBarber)
+  async function addPrice(newPriceCard: any){
+    if (selectedBarber){
+      const newPrices = [...selectedBarber.prices, newPriceCard]
+      const putReq = {
+        ...selectedBarber,
+        prices: newPrices, 
+      }
+      const data = await axios.put(
+        `http://localhost:3000/api/barbers/?barberId=${selectedBarber._id}`, 
+        putReq
+      )
+    }
+    setAnotherPrice(false)
+    //dispatch(addPrice())
+  }
   return (
     <div>
       <h2 className="border-b-2 text-2xl mt-28">Giovanni's Admin Page</h2>
@@ -88,11 +105,31 @@ export default function admin() {
                   </tr>
                 )
                 })}
+                <tr className="w-100 bg-green-700 flex justify-center">
+                  {anotherPrice && selectedBarber ? (
+                      <PriceCardModal 
+                        setAnotherPrice={setAnotherPrice}
+                        anotherPrice={anotherPrice}
+                        addPrice={addPrice}/>
+                  ) : (<></>) }
+                </tr>
                 <tr>
-                  <td className="flex flex-col items-center w-96 h-16">
-                    <div className='w-60 text-center h-8'>Add another price</div>
-                    <i className='fa-solid fa-2xl pt-2 text-green-500 fa-plus-circle'></i>
-                  </td>
+                  {anotherPrice && selectedBarber ? (
+                    <></>
+                  ) : (
+                    <td 
+                      onClick={() => {
+                        if (selectedBarber) {
+                          setAnotherPrice(true)}
+                        }
+                      }
+                      className="flex flex-col items-center w-96 h-16">
+                      <div 
+                        className='w-60 text-center h-8'
+                      >Add another price</div>
+                      <i className='fa-solid fa-2xl pt-2 text-green-500 fa-plus-circle'></i>
+                    </td>
+                  )}
                 </tr>
               </tbody>
             </table>

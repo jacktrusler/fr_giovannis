@@ -1,37 +1,33 @@
-import { ReactElement, useState } from "react";
-import axios from 'axios'
+import { Dispatch, ReactElement, SetStateAction, useState } from "react"
 
-export interface PriceData {
-  _id?: string;
+export interface PriceProps {
   haircut?: string;
   description?: string;
   price?: string;
+  addPrice: (newPriceCard: any) => Promise<void>;
+  setAnotherPrice: Dispatch<SetStateAction<boolean>>;
+  anotherPrice: boolean;
 }
 
-
-export function PriceCardEditable(props: PriceData): ReactElement {
+export function PriceCardModal(props: PriceProps): ReactElement {
   const {
-    _id="0",
     price = "$20",
     haircut = "shave",
     description="No desription provided",
+    addPrice,
+    setAnotherPrice,
+    anotherPrice,
   } = props
 
-  const [priceCard, setPriceCard] = useState<PriceData>({
-    _id,
+  const [priceCard, setPriceCard] = useState({
     price,
     haircut,
     description,
   })
-
-  async function submitChanges(){
-    const data = await axios.put(`http://localhost:3000/api/prices/?priceId=${_id}`, priceCard)
-  }
-
   return (
         <td className="flex w-96 bg-gray-600 shadow-xl mb-1 rounded">
-        <textarea 
-          className="flex w-36 items-center pl-2 pt-1 text-md pr-2 border border-black w-28 h-20 font-semibold tracking-tight"
+          <textarea 
+          className="flex w-36 items-center pl-2 pt-1 text-md pr-2 border-2 border-green-500 w-28 h-20 font-semibold tracking-tight"
           placeholder={haircut}
           onBlur={(e) => 
             setPriceCard({
@@ -41,7 +37,7 @@ export function PriceCardEditable(props: PriceData): ReactElement {
           } 
         />
           <textarea 
-            className="px-2 flex items-center border border-black"
+            className="px-2 flex items-center border-2 border-green-500"
             placeholder={description}
             onBlur={(e) => 
               setPriceCard({
@@ -51,7 +47,7 @@ export function PriceCardEditable(props: PriceData): ReactElement {
             } 
         />
           <input 
-            className="w-20 text-green-500 text-2xl border border-black"
+            className="w-20 text-green-500 text-2xl border-2 border-green-500"
             placeholder={price} 
             value={priceCard.price} 
             onChange={(e) => 
@@ -63,11 +59,15 @@ export function PriceCardEditable(props: PriceData): ReactElement {
           />
         <div className="bg-white flex flex-col items-center justify-around w-8">
           <i 
-            className="fa-solid fa-circle-check text-green-700 hover:cursor-pointer"
-            onClick={submitChanges}
+            className="fa-solid fa-circle-plus text-green-700 hover:cursor-pointer"
+            onClick={() => addPrice(priceCard)}
           />
-          <i className="fa-solid fa-trash-can text-red-700 hover:cursor-pointer"></i>
+          <i 
+          className="fa-solid fa-circle-minus text-red-700 hover:cursor-pointer"
+          onClick={() => setAnotherPrice(false)}  
+        ></i>
         </div>
-      </td>
+ 
+    </td>
   )
 }

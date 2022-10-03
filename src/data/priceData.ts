@@ -1,16 +1,4 @@
-export interface BarberPrices {
-  barber: string;
-  priceData: PriceData[];
-}
-
-export interface PriceData {
-  _id: string;
-  haircut: string;
-  description: string;
-  price: string;
-}
-
-export const dansPrices: BarberPrices = {
+export const dansPrices: any = {
   barber: "Dan",
   priceData: [
     {

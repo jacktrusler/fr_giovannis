@@ -35,7 +35,6 @@ const pricesSlice = createSlice({
       })
       .addCase(fetchBarbers.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        console.log(action.payload)
         state.allBarbers = action.payload
       })
       .addCase(fetchBarbers.rejected, (state, action) => {
