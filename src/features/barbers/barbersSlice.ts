@@ -1,13 +1,16 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import {BarbersScheme} from "../../mongoDB/model/barbers";
 
 interface ReduxBarbersState {
-  allBarbers: any;
+  selectedBarber: BarbersScheme | undefined;
+  allBarbers: BarbersScheme[];
   status: string;
   error: string | undefined;
 }
 
 const initialState: ReduxBarbersState  = {
+  selectedBarber: undefined,
   allBarbers: [],
   status: 'idle',
   error: '',
@@ -27,8 +30,17 @@ const barbersSlice = createSlice({
   name: 'prices',
   initialState,
   reducers: {
+    selectBarber(state, action) {
+      state.selectedBarber = action.payload; 
+    },
     addBarberPrice(state, action) {
-      console.log(action.payload)
+      const index = state.allBarbers.findIndex((barber: BarbersScheme) => barber._id === action.payload._id)
+      if (index !== -1){
+        state.allBarbers[index].prices = action.payload.prices
+        if (state.selectedBarber !== undefined) {
+          state.selectedBarber.prices = action.payload.prices
+        } 
+      }
     }
   },
   extraReducers(builder) {
@@ -52,5 +64,5 @@ const barbersSlice = createSlice({
   }
 })
 
-export const { addBarberPrice } = barbersSlice.actions
+export const {selectBarber, addBarberPrice} = barbersSlice.actions
 export default barbersSlice.reducer

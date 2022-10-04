@@ -22,8 +22,6 @@ export function PriceCardEditable(props: PriceProps): ReactElement {
     description="No desription provided",
   } = props
 
-  console.log(_id)
-
   const [priceCard, setPriceCard] = useState<PriceData>({
     _id,
     price,

@@ -1,21 +1,21 @@
 import SignUpForm from '../components/Admin/SignUpForm';
 import { useState, useEffect } from 'react';
 import { PriceCard } from '../components/Pricing/PriceCard';
-import {PriceCardEditable} from '../components/Pricing/PriceCardEditable';
+import {PriceCardEditable, PriceData} from '../components/Pricing/PriceCardEditable';
 import {useDispatch, useSelector} from 'react-redux'
-import { addBarberPrice, fetchBarbers } from '../features/barbers/barbersSlice';
-import {RootState} from '../features/store';
+import { addBarberPrice, fetchBarbers , selectBarber} from '../features/barbers/barbersSlice';
+import {AppDispatch, RootState} from '../features/store';
 import {BarbersScheme, PriceScheme} from '../mongoDB/model/barbers';
 import axios from 'axios';
 import { PriceCardModal } from '../components/Pricing/PriceCardModal';
 
 export default function admin() {
-  const [selectedBarber, setSelectedBarber] = useState<BarbersScheme>()
   const [anotherPrice, setAnotherPrice] = useState<boolean>(false)
 
+  const selectedBarber = useSelector((state: RootState) => state.barbers.selectedBarber)
   const pricesStatus = useSelector((state: RootState) => state.barbers.status)
   const allBarbers = useSelector((state: RootState) => state.barbers.allBarbers)
-  const dispatch = useDispatch() as any;
+  const dispatch = useDispatch() as AppDispatch;
 
   useEffect(() => {
     if (pricesStatus === 'idle') {
@@ -23,7 +23,7 @@ export default function admin() {
     }
   }, [])
 
-  async function addPrice(newPriceCard: any){
+  async function addPrice(newPriceCard: PriceData){
     if (selectedBarber){
       const newPrices = [...selectedBarber.prices, newPriceCard]
       const putReq = {
@@ -40,6 +40,7 @@ export default function admin() {
     }
     setAnotherPrice(false)
   }
+
   return (
     <div>
       <h2 className="border-b-2 text-2xl mt-28">Giovanni's Admin Page</h2>
@@ -55,7 +56,7 @@ export default function admin() {
             <div key={index}>
               <button 
                 className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg"
-                onClick={() => setSelectedBarber(barber)}>
+                onClick={() => dispatch(selectBarber(barber))}>
                 {index + 1}. {barber.name}
               </button>
             </div>
@@ -78,7 +79,7 @@ export default function admin() {
             <table className="border-gray-700 border-2 shadow-2xl mr-8">
               <tbody>
                 {selectedBarber?.prices.map((price: PriceScheme) => (
-                  <tr key={price._id} className="w-100 bg-gray-700 flex justify-center">
+                  <tr key={price._id + price.haircut} className="w-100 bg-gray-700 flex justify-center">
                     <PriceCard 
                       _id={price._id}
                       haircut={price.haircut}
@@ -97,7 +98,7 @@ export default function admin() {
               <tbody>
                 {selectedBarber?.prices.map((price: PriceScheme) => {
                   return (
-                  <tr key={price._id} className="w-100 bg-gray-700 flex justify-center">
+                  <tr key={price._id + price.haircut} className="w-100 bg-gray-700 flex justify-center">
                     <PriceCardEditable 
                       currentBarber={selectedBarber}
                       _id={price._id}

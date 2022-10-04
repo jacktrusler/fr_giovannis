@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { connectMongoDB } from "../../../mongoDB/conn"
-import { deletePriceFromBarber } from "../../../mongoDB/controller"
+import { deletePriceFromBarber, putPrices } from "../../../mongoDB/controller"
 
 type Data = {
   method?: any;
@@ -16,6 +16,9 @@ export default function handler(
   const { method } = req;
 
   switch(method) {
+    case'PUT':
+      putPrices(req, res);
+      break;
     case'DELETE':
       deletePriceFromBarber(req, res);
       break;
