@@ -1,6 +1,9 @@
 import { ReactElement, useState } from "react";
 import axios from 'axios'
 import {BarbersScheme} from "../../mongoDB/model/barbers";
+import {deleteBarberPrice, updateBarberPrice} from "../../features/barbers/barbersSlice";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "../../features/store";
 
 export interface PriceData {
   _id?: string;
@@ -28,13 +31,17 @@ export function PriceCardEditable(props: PriceProps): ReactElement {
     haircut,
     description,
   })
+  const dispatch = useDispatch() as AppDispatch;
 
   async function submitChanges(){
-    const data = await axios.put(`http://localhost:3000/api/prices/?priceId=${_id}`, priceCard)
+    console.log(priceCard)
+    const data = await axios.put(`http://localhost:3000/api/prices/?barberId=${currentBarber._id}&priceId=${_id}`, priceCard)
+    dispatch(updateBarberPrice(priceCard))
   }
 
   async function deleteCard(){
     const data = await axios.delete(`http://localhost:3000/api/prices/?barberId=${currentBarber._id}&priceId=${_id}`)
+    dispatch(deleteBarberPrice(priceCard))
   }
 
   return (

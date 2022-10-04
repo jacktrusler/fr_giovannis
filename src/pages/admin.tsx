@@ -11,14 +11,15 @@ import { PriceCardModal } from '../components/Pricing/PriceCardModal';
 
 export default function admin() {
   const [anotherPrice, setAnotherPrice] = useState<boolean>(false)
+  const [barberIndex, setBarberIndex] = useState<number>(0);
 
   const selectedBarber = useSelector((state: RootState) => state.barbers.selectedBarber)
-  const pricesStatus = useSelector((state: RootState) => state.barbers.status)
+  const barbersStatus = useSelector((state: RootState) => state.barbers.status)
   const allBarbers = useSelector((state: RootState) => state.barbers.allBarbers)
   const dispatch = useDispatch() as AppDispatch;
 
   useEffect(() => {
-    if (pricesStatus === 'idle') {
+    if (barbersStatus === "idle"){
       dispatch(fetchBarbers())
     }
   }, [])
@@ -34,13 +35,11 @@ export default function admin() {
         `http://localhost:3000/api/barbers/?barberId=${selectedBarber._id}`, 
         putReq
       )
-      if (data.status === 200) {
-        dispatch(addBarberPrice(putReq))
-      }
     }
     setAnotherPrice(false)
   }
 
+  console.log(allBarbers[0])
   return (
     <div>
       <h2 className="border-b-2 text-2xl mt-28">Giovanni's Admin Page</h2>
@@ -56,7 +55,7 @@ export default function admin() {
             <div key={index}>
               <button 
                 className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg"
-                onClick={() => dispatch(selectBarber(barber))}>
+                onClick={() => setBarberIndex(index)}>
                 {index + 1}. {barber.name}
               </button>
             </div>
@@ -78,7 +77,7 @@ export default function admin() {
             <h1 className='text-4xl'>Displayed on page</h1>
             <table className="border-gray-700 border-2 shadow-2xl mr-8">
               <tbody>
-                {selectedBarber?.prices.map((price: PriceScheme) => (
+                {allBarbers[barberIndex]?.prices.map((price: PriceScheme) => (
                   <tr key={price._id + price.haircut} className="w-100 bg-gray-700 flex justify-center">
                     <PriceCard 
                       _id={price._id}
@@ -96,11 +95,11 @@ export default function admin() {
             <h1 className='text-4xl'>Edit</h1>
             <table className="border-gray-700 border-2 shadow-2xl">
               <tbody>
-                {selectedBarber?.prices.map((price: PriceScheme) => {
+                {allBarbers[barberIndex]?.prices.map((price: PriceScheme) => {
                   return (
                   <tr key={price._id + price.haircut} className="w-100 bg-gray-700 flex justify-center">
                     <PriceCardEditable 
-                      currentBarber={selectedBarber}
+                      currentBarber={allBarbers[barberIndex]}
                       _id={price._id}
                       haircut={price.haircut}
                       description={price.description} 
@@ -110,7 +109,7 @@ export default function admin() {
                 )
                 })}
                 <tr className="w-100 bg-green-700 flex justify-center">
-                  {anotherPrice && selectedBarber ? (
+                  {anotherPrice && allBarbers[barberIndex] ? (
                       <PriceCardModal 
                         setAnotherPrice={setAnotherPrice}
                         anotherPrice={anotherPrice}
@@ -118,14 +117,12 @@ export default function admin() {
                   ) : (<></>) }
                 </tr>
                 <tr>
-                  {anotherPrice && selectedBarber ? (
+                  {anotherPrice ? (
                     <></>
                   ) : (
                     <td 
                       onClick={() => {
-                        if (selectedBarber) {
                           setAnotherPrice(true)}
-                        }
                       }
                       className="flex flex-col items-center w-96 h-16">
                       <div 

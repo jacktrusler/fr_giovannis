@@ -16,7 +16,7 @@ const initialState: ReduxBarbersState  = {
   error: '',
 }
 
-export const fetchBarbers = createAsyncThunk('prices/fetchBarbers', async (_, {rejectWithValue}) => {
+export const fetchBarbers = createAsyncThunk('prices/fetchBarbers', async () => {
   try {
     const response = await axios.get('http://localhost:3000/api/barbers')
     return response.data
@@ -32,6 +32,25 @@ const barbersSlice = createSlice({
   reducers: {
     selectBarber(state, action) {
       state.selectedBarber = action.payload; 
+    },
+    updateBarberPrice(state, action) {
+      if (state.selectedBarber !== undefined){
+        const priceIndex = 
+          state.selectedBarber.prices.findIndex((price: any) => price._id === action.payload._id)
+        if (priceIndex !== -1){
+          state.selectedBarber.prices[priceIndex] = action.payload
+        }
+      }
+    },
+    deleteBarberPrice(state, action) {
+      console.log(action.payload)
+      if (state.selectedBarber !== undefined){
+        const priceIndex = 
+          state.selectedBarber.prices.findIndex((price: any) => price._id === action.payload._id)
+        if (priceIndex !== -1){
+          state.selectedBarber.prices.splice(priceIndex, 1)
+        }
+      }
     },
     addBarberPrice(state, action) {
       const index = state.allBarbers.findIndex((barber: BarbersScheme) => barber._id === action.payload._id)
@@ -64,5 +83,5 @@ const barbersSlice = createSlice({
   }
 })
 
-export const {selectBarber, addBarberPrice} = barbersSlice.actions
+export const {selectBarber, updateBarberPrice, addBarberPrice, deleteBarberPrice} = barbersSlice.actions
 export default barbersSlice.reducer
