@@ -23,10 +23,13 @@ export const fetchBarbers = createAsyncThunk('prices/fetchBarbers', async (_, {r
   }
 })
 
-const pricesSlice = createSlice({
+const barbersSlice = createSlice({
   name: 'prices',
   initialState,
   reducers: {
+    addBarberPrice(state, action) {
+      console.log(action.payload)
+    }
   },
   extraReducers(builder) {
     builder
@@ -49,4 +52,5 @@ const pricesSlice = createSlice({
   }
 })
 
-export default pricesSlice.reducer
+export const { addBarberPrice } = barbersSlice.actions
+export default barbersSlice.reducer

@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { connectMongoDB } from "../../../mongoDB/conn"
-import { getSingleBarber } from "../../../mongoDB/controller"
+import { deletePriceFromBarber } from "../../../mongoDB/controller"
 
 type Data = {
   method?: any;
@@ -12,13 +12,12 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  connectMongoDB().catch(() => res.status(405).json({error: "Error in the Connection"}));
   const { method } = req;
 
-  connectMongoDB().catch(() => res.status(405).json({error: "Error in the Connection"}));
-
   switch(method) {
-    case'GET':
-      getSingleBarber(req, res);
+    case'DELETE':
+      deletePriceFromBarber(req, res);
       break;
     default:
       res.setHeader("Allow", ['GET', 'POST', 'PUT', 'DELETE']);

@@ -72,3 +72,22 @@ export async function deleteBarbers(req: any, res: any) {
     res.status(404).json( {error: "Error While Fetching Data"})
   }  
 }
+
+//DELETE: http://localhost:3000/api/barbers/?barberId=${barberId}&priceId=${priceId}
+export async function deletePriceFromBarber(req: any, res: any) {
+  try {
+    const {barberId, priceId} = req.query;
+    
+    if (barberId && priceId) {
+      const price = await Barbers.findByIdAndUpdate(
+        barberId,
+        { $pull: {prices: {_id: priceId}} }
+      )
+      return res.status(200).json({deleted: priceId})
+    }
+    return res.status(404).json( {error: "BarberID or PriceID not provided!"} )
+  }
+  catch {
+    res.status(404).json( {error: "Error While Fetching Data"})
+  }
+}

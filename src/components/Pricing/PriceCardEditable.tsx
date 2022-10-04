@@ -1,5 +1,6 @@
 import { ReactElement, useState } from "react";
 import axios from 'axios'
+import {BarbersScheme} from "../../mongoDB/model/barbers";
 
 export interface PriceData {
   _id?: string;
@@ -8,14 +9,20 @@ export interface PriceData {
   price?: string;
 }
 
+interface PriceProps extends PriceData {
+  currentBarber: BarbersScheme
+}
 
-export function PriceCardEditable(props: PriceData): ReactElement {
+export function PriceCardEditable(props: PriceProps): ReactElement {
   const {
-    _id="0",
+    currentBarber,
+    _id,
     price = "$20",
     haircut = "shave",
     description="No desription provided",
   } = props
+
+  console.log(_id)
 
   const [priceCard, setPriceCard] = useState<PriceData>({
     _id,
@@ -26,6 +33,10 @@ export function PriceCardEditable(props: PriceData): ReactElement {
 
   async function submitChanges(){
     const data = await axios.put(`http://localhost:3000/api/prices/?priceId=${_id}`, priceCard)
+  }
+
+  async function deleteCard(){
+    const data = await axios.delete(`http://localhost:3000/api/prices/?barberId=${currentBarber._id}&priceId=${_id}`)
   }
 
   return (
@@ -66,7 +77,10 @@ export function PriceCardEditable(props: PriceData): ReactElement {
             className="fa-solid fa-circle-check text-green-700 hover:cursor-pointer"
             onClick={submitChanges}
           />
-          <i className="fa-solid fa-trash-can text-red-700 hover:cursor-pointer"></i>
+          <i 
+            className="fa-solid fa-trash-can text-red-700 hover:cursor-pointer"
+            onClick={deleteCard}
+          />
         </div>
       </td>
   )

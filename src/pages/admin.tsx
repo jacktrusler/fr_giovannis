@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { PriceCard } from '../components/Pricing/PriceCard';
 import {PriceCardEditable} from '../components/Pricing/PriceCardEditable';
 import {useDispatch, useSelector} from 'react-redux'
-import { fetchBarbers } from '../features/barbers/barbersSlice';
+import { addBarberPrice, fetchBarbers } from '../features/barbers/barbersSlice';
 import {RootState} from '../features/store';
 import {BarbersScheme, PriceScheme} from '../mongoDB/model/barbers';
 import axios from 'axios';
@@ -34,9 +34,11 @@ export default function admin() {
         `http://localhost:3000/api/barbers/?barberId=${selectedBarber._id}`, 
         putReq
       )
+      if (data.status === 200) {
+        dispatch(addBarberPrice(putReq))
+      }
     }
     setAnotherPrice(false)
-    //dispatch(addPrice())
   }
   return (
     <div>
@@ -97,6 +99,7 @@ export default function admin() {
                   return (
                   <tr key={price._id} className="w-100 bg-gray-700 flex justify-center">
                     <PriceCardEditable 
+                      currentBarber={selectedBarber}
                       _id={price._id}
                       haircut={price.haircut}
                       description={price.description} 
