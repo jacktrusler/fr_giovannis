@@ -3,37 +3,11 @@ import cutLogo from '../../public/theCutLogo.png'
 import { Barber } from './Barbers/Barber';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 import Pricing from './Pricing/Pricing';
+import BarberCard from './Barbers/BarberCard';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../features/store';
 import {fetchBarbers} from '../features/barbers/barbersSlice';
 //import { signOut } from 'next-auth/react'
-
-type TechnologyCardProps = {
-  name?: string;
-  title?: string;
-  index: number;
-  setBarberIndex: Dispatch<SetStateAction<number>>;
-  setIsSelected: Dispatch<SetStateAction<boolean>>;
-};
-
-const TechnologyCard = ({ name, title, index, setBarberIndex, setIsSelected }: TechnologyCardProps) => {
-  return (
-    <section
-      className={`
-          button-transition hover:cursor-pointer flex flex-col justify-center p-10 duration-500 
-          border-2 border-gray-300 rounded shadow-xl motion-safe:hover:scale-110
-          bg-gradient-to-b from-white to-gray-300`
-      }
-      onClick={() => {
-        setBarberIndex(index)
-        setIsSelected(true)
-      }}
-    >
-      <h2 className={`text-2xl text-black`}>{name}</h2>
-      <p className="text-md text-gray-600">{title}</p>
-    </section>
-  );
-};
 
 function HomePage() {
   const [barberIndex, setBarberIndex] = useState<number>(0);
@@ -71,7 +45,7 @@ function HomePage() {
         <div className="grid custom-shadow justify-center gap-3 pt-3 my-3 text-center md:grid-cols-1 lg:w-2/5">
           {allBarbers.map((barber, index: number) => {
             return (
-              <TechnologyCard
+              <BarberCard
                 key={barber.name}
                 name={barber.name}
                 title={barber.title}

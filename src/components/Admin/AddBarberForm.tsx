@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {fetchBarbers} from "../../features/barbers/barbersSlice";
 import {AppDispatch} from "../../features/store";
 
-function SignUpForm() {
+function AddBarberForm() {
   const [openToast, setOpenToast] = useState(false)
   const dispatch = useDispatch() as AppDispatch;
 
@@ -41,9 +41,9 @@ function SignUpForm() {
   }
 
   return(
-    <div className="block p-6 pt-4 rounded-lg shadow-lg bg-orange-200 max-w-md">
+    <div className="block border-white border p-6 pt-4 rounded-lg shadow-lg bg-orange-200 max-w-md">
     <form id='barber-form' onSubmit={addBarber}>
-      <h2 className="text-center text-2xl pb-4">Add Barber</h2>
+      <h2 className="text-center text-2xl pb-4 text-black">Add Barber</h2>
       <div className="grid grid-cols-2 gap-4">
         <div className="form-group mb-6">
           <input 
@@ -113,4 +113,4 @@ function SignUpForm() {
   )
 }
 
-export default SignUpForm;
+export default AddBarberForm;

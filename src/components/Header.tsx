@@ -5,12 +5,14 @@ const Header = () => {
     <div className="flex">
       <div className="z-10 flex fixed justify-around bg-gray-900 pb-2 h-24 border-white border-double border-b-4 w-full">
         <div className="flex items-end hover:cursor-pointer">
-          <Image 
-            src="/barber-pole.svg" 
-            width={60} 
-            height={74}
-            >
-          </Image>
+          <a style={{height: 76}} className='' href='#'>
+            <Image 
+              src="/barber-pole.svg" 
+              width={60} 
+              height={76}
+              >
+            </Image>
+          </a>
           <div className='flex hover-underline-animation hidden text-3xl items-end text-white'>
             <a href="#" className='hidden sm:block'>Giovannis Barbershop</a>
           </div>

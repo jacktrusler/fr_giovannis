@@ -1,4 +1,3 @@
-import SignUpForm from '../components/Admin/SignUpForm';
 import { useState, useEffect, FormEvent } from 'react';
 import { PriceCard } from '../components/Pricing/PriceCard';
 import {PriceCardEditable, PriceData} from '../components/Pricing/PriceCardEditable';
@@ -9,6 +8,8 @@ import {BarbersScheme, PriceScheme} from '../mongoDB/model/barbers';
 import axios from 'axios';
 import { PriceCardModal } from '../components/Pricing/PriceCardModal';
 import {Barber} from '../components/Barbers/Barber';
+import AddBarberForm from '../components/Admin/AddBarberForm';
+import Link from 'next/link';
 
 export default function admin() {
   const [anotherPrice, setAnotherPrice] = useState<boolean>(false)
@@ -73,15 +74,15 @@ export default function admin() {
 
 
   return (
-    <div>
-      <h2 className="border-b-2 text-center text-4xl mt-28">Giovanni's Admin Page</h2>
-      <div className='flex flex-col py-8 items-center border-b-2'>
-        <SignUpForm />
+    <div className='bg-gray-700 text-white'>
+      <h2 className="border-b-2 border-black text-center text-4xl pt-28 pb-4">Giovanni's Admin Page</h2>
+      <div className='flex flex-col py-8 items-center border-b-2 border-black'>
+        <AddBarberForm />
       </div>
-
-      <div className='flex py-8 justify-center border-b-2'>
-        <div className='w-80'>
-          <h2 className="text-2xl text-decoration: underline">Select/Delete Barber</h2>
+      <div id="meet-the-barbers" className='anchor'></div>
+      <div  className='flex flex-wrap py-8 justify-center border-black border-b-2'>
+        <div style={{height: 500}} className='p-6 pt-4 mb-4 text-black rounded-lg border-white border shadow-lg bg-orange-200 max-w-md'>
+          <h2 className="text-2xl text-center pb-4">Select/Delete Barber</h2>
           {allBarbers.map((barber: BarbersScheme, index: number) => {
             return (
               <div className='flex' key={index}>
@@ -91,7 +92,7 @@ export default function admin() {
                   {index + 1}. {barber.name}
                 </button>
                 <i 
-                  className='flex border border-red-400 p-4 hover:cursor-pointer self-center fa-solid fa-trash-can text-red-500'
+                  className='flex border border-red-400 p-4 hover:cursor-pointer self-center fa-solid fa-trash-can bg-red-100 text-red-500'
                   onClick={() => deleteBarber(barber._id)}
                 ></i>
               </div>
@@ -99,9 +100,8 @@ export default function admin() {
           }
           )}
         </div>
-
-        <div className='flex flex-col'>
-          <h2 className="text-2xl text-decoration: underline">Edit Barber</h2>
+        <div style={{height: 500}} className='text-black mx-4 w-80 p-6 pt-4 rounded-lg border-white border shadow-lg bg-orange-200 max-w-md'>
+          <h2 className="text-2xl text-center pb-2">Edit Barber</h2>
           <form id="edit-barber-form" onSubmit={(e) => formify(e)}>
             <label>Name</label>
             <input 
@@ -125,7 +125,8 @@ export default function admin() {
         </div>
       </div>
 
-      <div className='bg-white border-b-2'>
+      <h1 className='text-center pt-4 text-2xl'>Displayed on page</h1>
+      <div className='border-black border-b-2'>
         <Barber 
           name={allBarbers[barberIndex]?.name}
           description={allBarbers[barberIndex]?.description}
@@ -138,12 +139,11 @@ export default function admin() {
       {/*   <AdminSchedule /> */}
       {/* </div> */}
 
+      <div id="pricing" className='anchor'></div>
       <div>
-        <h2 className="my-2 text-2xl text-center">Barber Prices</h2>
-        <div className="my-8 flex justify-center w-100">
+        <div className="py-8 flex justify-center w-100">
 
           <div>
-            <h1 className='text-2xl'>Displayed on page</h1>
             <table className="border-gray-700 border-2 shadow-2xl mr-8">
               <tbody>
                 {allBarbers[barberIndex]?.prices.map((price: PriceScheme) => (
@@ -161,7 +161,6 @@ export default function admin() {
           </div>
 
           <div>
-            <h1 className='text-2xl'>Edit</h1>
             <table className="border-gray-700 border-2 shadow-2xl">
               <tbody>
                 {allBarbers[barberIndex]?.prices.map((price: PriceScheme) => {
@@ -193,7 +192,7 @@ export default function admin() {
                       onClick={() => {
                           setAnotherPrice(true)}
                       }
-                      className="flex flex-col items-center w-96 h-16">
+                        className="hover:cursor-pointer text-black border-2 border-green-500 flex flex-col items-center w-96 h-16 bg-green-100">
                       <div 
                         className='w-60 text-center h-8'
                       >Add another price</div>
@@ -206,6 +205,11 @@ export default function admin() {
           </div>
         </div>
       </div>
+      <Link href='/'>
+        <div className='flex w-100 justify-center pb-4'>
+          <h2 className="hover:cursor-pointer border border-black text-center w-80 p-2 rounded text-3xl bg-black">Back to Home Page</h2>
+        </div>
+      </Link>
     </div>
   )
 }
