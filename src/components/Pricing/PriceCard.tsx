@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
-import {PriceData} from "../../data/priceData";
+import {PriceScheme} from "../../mongoDB/model/barbers";
 
-export function PriceCard(props: PriceData): ReactElement {
+export function PriceCard(props: PriceScheme): ReactElement {
   const {
     _id="0",
     price = "$20",
