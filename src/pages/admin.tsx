@@ -165,7 +165,7 @@ export default function admin() {
               <tbody>
                 {allBarbers[barberIndex]?.prices.map((price: PriceScheme) => {
                   return (
-                  <tr key={price._id + price.haircut} className="w-100 bg-gray-700 flex justify-center">
+                  <tr key={price._id + price.haircut} className="w-100 text-black bg-gray-700 flex justify-center">
                     <PriceCardEditable 
                       currentBarber={allBarbers[barberIndex]}
                       _id={price._id}
