@@ -18,7 +18,7 @@ function AddBarberForm() {
       description: form.description.value,
       email: form.email.value
     }
-    const data = await axios.post('http://localhost:3000/api/barbers/', postData)
+    const data = await axios.post('http://localhost:4000/api/barbers/', postData)
     if (data.status === 200) {
       setOpenToast(true)
       if (document.getElementById('barber-form') !== null) {
