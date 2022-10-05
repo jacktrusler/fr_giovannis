@@ -1,8 +1,12 @@
 import axios from "axios";
 import {useState} from "react";
+import {useDispatch} from "react-redux";
+import {fetchBarbers} from "../../features/barbers/barbersSlice";
+import {AppDispatch} from "../../features/store";
 
 function SignUpForm() {
   const [openToast, setOpenToast] = useState(false)
+  const dispatch = useDispatch() as AppDispatch;
 
   async function addBarber(e:any) {
     e.preventDefault()
@@ -10,6 +14,8 @@ function SignUpForm() {
     const fullName = form.firstName.value.trim() + " " + form.lastName.value.trim()
     const postData = {
       name: fullName,
+      title: form.title.value,
+      description: form.description.value,
       email: form.email.value
     }
     const data = await axios.post('http://localhost:3000/api/barbers/', postData)
@@ -19,6 +25,7 @@ function SignUpForm() {
         const barberForm = document.getElementById('barber-form') as HTMLFormElement;
         barberForm.reset()
       }
+      dispatch(fetchBarbers())
     }
   } 
 
@@ -34,8 +41,9 @@ function SignUpForm() {
   }
 
   return(
-    <div className="block p-6 rounded-lg shadow-lg bg-orange-200 max-w-md">
+    <div className="block p-6 pt-4 rounded-lg shadow-lg bg-orange-200 max-w-md">
     <form id='barber-form' onSubmit={addBarber}>
+      <h2 className="text-center text-2xl pb-4">Add Barber</h2>
       <div className="grid grid-cols-2 gap-4">
         <div className="form-group mb-6">
           <input 
@@ -56,11 +64,26 @@ function SignUpForm() {
       </div>
       <div className="form-group mb-6">
         <input 
+          type="text" 
+          className="form-control" 
+          id="title"
+          required
+          placeholder="Title"/>
+      </div>
+      <div className="form-group mb-6">
+        <input 
           type="email" 
           className="form-control" 
           id="email"
           required
           placeholder="Email address"/>
+      </div>
+      <div className="form-group mb-6">
+        <textarea 
+          className="form-control h-40" 
+          id="description"
+          required
+          placeholder="Description"/>
       </div>
       <input 
           type="submit" 

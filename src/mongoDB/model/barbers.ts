@@ -27,7 +27,7 @@ const priceSchema = new Schema({
 const barbersSchema = new Schema({
   name: String,
   title: String,
-  discription: String,
+  description: String,
   email: String,
   imgUri: String,
   prices: [priceSchema]

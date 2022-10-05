@@ -1,5 +1,5 @@
 import SignUpForm from '../components/Admin/SignUpForm';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { PriceCard } from '../components/Pricing/PriceCard';
 import {PriceCardEditable, PriceData} from '../components/Pricing/PriceCardEditable';
 import {useDispatch, useSelector} from 'react-redux'
@@ -25,35 +25,57 @@ export default function admin() {
   }, [])
 
   async function addPrice(newPriceCard: PriceData){
-    if (allBarbers[barberIndex]){
-      const newPrices = [...allBarbers[barberIndex].prices, newPriceCard]
-      const putReq = {
-        ...allBarbers[barberIndex],
-        prices: newPrices, 
-      }
-      const data = await axios.put(
-        `http://localhost:3000/api/barbers/?barberId=${allBarbers[barberIndex]._id}`, 
-        putReq
-      )
-      if (data) {
-        dispatch(fetchBarbers())
-      }
+    const newPrices = [...allBarbers[barberIndex].prices, newPriceCard]
+    const putReq = {
+      ...allBarbers[barberIndex],
+      prices: newPrices, 
+    }
+    const data = await axios.put(
+      `http://localhost:3000/api/barbers/?barberId=${allBarbers[barberIndex]._id}`, 
+      putReq
+    )
+    if (data.status === 200) {
+      dispatch(fetchBarbers())
     }
     setAnotherPrice(false)
   }
 
   async function deleteBarber(id: string){
     const data = await axios.delete(`http://localhost:3000/api/barbers/?barberId=${id}`)
-    if (data) {
+    if (data.status === 200) {
       dispatch(fetchBarbers())
     }
   }
+
+  async function formify(e: FormEvent<HTMLFormElement>){
+    e.preventDefault()
+    const form: any = e.target;
+    const name = form.barberName.value || form.barberName.placeholder;
+    const title = form.barberTitle.value || form.barberTitle.placeholder;
+    const description = form.barberDescription.value || form.barberDescription.placeholder;
+
+    const reqBody = {
+      _id: allBarbers[barberIndex]._id,
+      name: name,
+      title: title,
+      description: description,
+    }
+
+    const data = await axios.put(`http://localhost:3000/api/barbers/?barberId=${reqBody._id}`, reqBody)
+    if (data.status === 200) {
+      dispatch(fetchBarbers())
+      if (document.getElementById('edit-barber-form') !== null) {
+        const barberForm = document.getElementById('edit-barber-form') as HTMLFormElement;
+        barberForm.reset()
+      }
+    }
+  }
+
 
   return (
     <div>
       <h2 className="border-b-2 text-center text-4xl mt-28">Giovanni's Admin Page</h2>
       <div className='flex flex-col py-8 items-center border-b-2'>
-        <h2 className="text-2xl">Add Barber</h2>
         <SignUpForm />
       </div>
 
@@ -80,18 +102,26 @@ export default function admin() {
 
         <div className='flex flex-col'>
           <h2 className="text-2xl">Edit Barber</h2>
-          <label>Name</label>
-          <input 
-            className='flex justify-between p-4 w-56 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg' 
-            placeholder={allBarbers[barberIndex]?.name}></input>
-          <label>Title</label>
-          <input 
-            className='flex justify-between p-4 w-56 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg'
-            placeholder={allBarbers[barberIndex]?.title}></input>
-          <label>Description</label>
-          <textarea 
-            className='flex justify-between p-4 w-64 h-40 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg'
-            placeholder={allBarbers[barberIndex]?.description}></textarea>
+          <form id="edit-barber-form" onSubmit={(e) => formify(e)}>
+            <label>Name</label>
+            <input 
+              id='barberName'
+              className='flex justify-between p-4 w-56 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg' 
+              placeholder={allBarbers[barberIndex]?.name}></input>
+            <label>Title</label>
+            <input 
+              id='barberTitle'
+              className='flex justify-between p-4 w-56 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg'
+              placeholder={allBarbers[barberIndex]?.title}></input>
+            <label>Description</label>
+            <textarea 
+              id='barberDescription'
+              className='flex justify-between p-4 w-64 h-40 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg'
+              placeholder={allBarbers[barberIndex]?.description}></textarea>
+            <input 
+              className='flex justify-between mt-4 p-4 bg-white hover:bg-green-100 hover:cursor-pointer text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-green-700 text-lg'
+              type={'submit'}></input>
+          </form>
         </div>
       </div>
 
@@ -109,11 +139,11 @@ export default function admin() {
       {/* </div> */}
 
       <div>
-        <h2 className="my-2 text-2xl">Barber Prices</h2>
+        <h2 className="my-2 text-2xl text-center">Barber Prices</h2>
         <div className="my-8 flex justify-center w-100">
 
           <div>
-            <h1 className='text-4xl'>Displayed on page</h1>
+            <h1 className='text-2xl'>Displayed on page</h1>
             <table className="border-gray-700 border-2 shadow-2xl mr-8">
               <tbody>
                 {allBarbers[barberIndex]?.prices.map((price: PriceScheme) => (
@@ -131,7 +161,7 @@ export default function admin() {
           </div>
 
           <div>
-            <h1 className='text-4xl'>Edit</h1>
+            <h1 className='text-2xl'>Edit</h1>
             <table className="border-gray-700 border-2 shadow-2xl">
               <tbody>
                 {allBarbers[barberIndex]?.prices.map((price: PriceScheme) => {
@@ -174,30 +204,8 @@ export default function admin() {
               </tbody>
             </table>
           </div>
-          
-
         </div>
       </div>
     </div>
   )
 }
-
-// export async function getServerSideProps() {
-//   const { db } = await connectToDatabase();
-
-//   const barbers = await db
-//     .collection("admin_barbers")
-//     .find({})
-//     .toArray();
-
-//   // const times = await db
-//   //   .collection("time")
-
-
-//   return {
-//     props: {
-//       barbersDatabase: JSON.parse(JSON.stringify(barbers))
-//     }
-//   }
-
-// }
