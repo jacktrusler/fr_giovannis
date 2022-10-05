@@ -2,7 +2,6 @@ import Image from 'next/image';
 import cutLogo from '../../public/theCutLogo.png'
 import { Barber } from './Barbers/Barber';
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
-import { BarberData } from '../data/barberData';
 import Pricing from './Pricing/Pricing';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../features/store';
@@ -10,12 +9,14 @@ import {fetchBarbers} from '../features/barbers/barbersSlice';
 //import { signOut } from 'next-auth/react'
 
 type TechnologyCardProps = {
-  name: string;
-  description: string;
-  setBarberName: Dispatch<SetStateAction<string>>;
+  name?: string;
+  title?: string;
+  index: number;
+  setBarberIndex: Dispatch<SetStateAction<number>>;
+  setIsSelected: Dispatch<SetStateAction<boolean>>;
 };
 
-const TechnologyCard = ({ name, description, setBarberName }: TechnologyCardProps) => {
+const TechnologyCard = ({ name, title, index, setBarberIndex, setIsSelected }: TechnologyCardProps) => {
   return (
     <section
       className={`
@@ -23,26 +24,27 @@ const TechnologyCard = ({ name, description, setBarberName }: TechnologyCardProp
           border-2 border-gray-300 rounded shadow-xl motion-safe:hover:scale-110
           bg-gradient-to-b from-white to-gray-300`
       }
-      onClick={() => setBarberName(name)}
+      onClick={() => {
+        setBarberIndex(index)
+        setIsSelected(true)
+      }}
     >
       <h2 className={`text-2xl text-black`}>{name}</h2>
-      <p className="text-md text-gray-600">{description}</p>
+      <p className="text-md text-gray-600">{title}</p>
     </section>
   );
 };
 
-function HomePage({ barbers }: { barbers: BarberData[] }) {
-  const [barberName, setBarberName] = useState<string>('');
-  const clickedBarber = useMemo(() =>
-    barbers.filter((barber: BarberData) => barber.name === barberName)[0],
-    [barberName]);
+function HomePage() {
+  const [barberIndex, setBarberIndex] = useState<number>(0);
+  const [isSelected, setIsSelected] = useState<boolean>(false)
 
-  const pricesStatus = useSelector((state: RootState) => state.barbers.status)
-  const allPrices = useSelector((state: RootState) => state.barbers.allBarbers)
+  const barbersStatus = useSelector((state: RootState) => state.barbers.status)
+  const allBarbers = useSelector((state: RootState) => state.barbers.allBarbers)
   const dispatch = useDispatch() as any;
 
   useEffect(() => {
-    if (pricesStatus === 'idle') {
+    if (barbersStatus === 'idle') {
       dispatch(fetchBarbers())
     }
   }, [])
@@ -67,41 +69,41 @@ function HomePage({ barbers }: { barbers: BarberData[] }) {
           <span >Meet the Barbers</span>
         </div>
         <div className="grid custom-shadow justify-center gap-3 pt-3 my-3 text-center md:grid-cols-1 lg:w-2/5">
-          <TechnologyCard
-            name={barbers[0].name}
-            description="The Man with the plan"
-            setBarberName={setBarberName}
-          />
-          <TechnologyCard
-            name={barbers[1].name}
-            description="Barber Extordinaire"
-            setBarberName={setBarberName}
-          />
-          <TechnologyCard
-            name={barbers[2].name}
-            description="Barber, motocyclist, gamer"
-            setBarberName={setBarberName}
-          />
+          {allBarbers.map((barber, index: number) => {
+            return (
+              <TechnologyCard
+                key={barber.name}
+                name={barber.name}
+                title={barber.title}
+                index={index}
+                setBarberIndex={setBarberIndex}
+                setIsSelected={setIsSelected}
+              />
+            )
+          })}
         </div>
       </div>
-      {clickedBarber ? (
+      {allBarbers[barberIndex] && isSelected ? (
         <Barber
-          name={clickedBarber.name}
-          title={clickedBarber.title}
-          description={clickedBarber.description}
-          pictureSrc={clickedBarber.pictureSrc}
+          name={allBarbers[barberIndex].name}
+          title={allBarbers[barberIndex].title}
+          description={allBarbers[barberIndex].description}
+          pictureSrc={allBarbers[barberIndex].imgUri}
         />
       ) : (
         <div className="pt-8 pb-8  w-100 flex justify-center flex-wrap justify-around bg-gray-700">
-          {barbers.map((barber) => {
+            {allBarbers.map((barber, index: number) => {
             return (
               <div key={barber.name}>
                 <div
                   className="rounded-xl custom-shadow hover:cursor-pointer overflow-hidden md:h-80 md:w-80 h-48 w-48 relative"
-                  onClick={() => setBarberName(barber.name)}
+                  onClick={() => {
+                    setBarberIndex(index)
+                    setIsSelected(true)
+                  }}
                 >
                   <Image
-                    src={barber.pictureSrc}
+                    src={barber.imgUri as string || 'https://picsum.photos/400/400'}
                     layout="fill"
                     objectFit="contain"
                   >
@@ -114,7 +116,12 @@ function HomePage({ barbers }: { barbers: BarberData[] }) {
         </div>
       )
       }
-      <Pricing allPrices={allPrices}/>
+      <Pricing 
+        allBarbers={allBarbers}
+        allPrices={allBarbers[barberIndex]?.prices}
+        setBarberIndex={setBarberIndex}
+        barberIndex={barberIndex}
+      />
       <div className="w-full h-44 md:h-36 flex flex-col items-center pt-4 bg-gray-900 border-t-2 border-white">
         <a target="_blank" rel="noopener noreferrer" href="https://www.thecut.co/" className='relative overflow-hidden rounded-lg h-20 w-40 border-4 border-white'>
           <Image

@@ -79,9 +79,9 @@ export default function admin() {
         <SignUpForm />
       </div>
 
-      <div className='flex justify-center border-b-2'>
+      <div className='flex py-8 justify-center border-b-2'>
         <div className='w-80'>
-          <h2 className="text-2xl">Select/Delete Barber</h2>
+          <h2 className="text-2xl text-decoration: underline">Select/Delete Barber</h2>
           {allBarbers.map((barber: BarbersScheme, index: number) => {
             return (
               <div className='flex' key={index}>
@@ -101,7 +101,7 @@ export default function admin() {
         </div>
 
         <div className='flex flex-col'>
-          <h2 className="text-2xl">Edit Barber</h2>
+          <h2 className="text-2xl text-decoration: underline">Edit Barber</h2>
           <form id="edit-barber-form" onSubmit={(e) => formify(e)}>
             <label>Name</label>
             <input 
