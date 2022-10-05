@@ -15,8 +15,8 @@ export default function Pricing(props: PricingProps): ReactElement {
   return (
     <div className="w-100 pb-16 bg-gray-700 flex-col items-center">
       <div className="w-100 pt-8 flex-col justify-center items-center border-white border-double border-t-4 w-full">
-        <div className="flex justify-center h-80 w-100">
-          <div className="flex flex-wrap justify-center h-96 pb-4" style={{width: '400px'}}>
+        <div className="flex justify-center w-100">
+          <div className="flex flex-wrap justify-center pb-4" style={{width: '600px'}}>
             <div className="anchor-pricing" id="pricing"></div>
 
             {allBarbers.map((barber, index) => {
@@ -24,7 +24,7 @@ export default function Pricing(props: PricingProps): ReactElement {
                 <a 
                   key={barber.name}
                   onClick={() => setBarberIndex(index)}
-                  className="h-40 custom-shadow mx-4 flex-col bg-gray-200 items-center rounded-lg border shadow-2xl md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
+                  className="mb-4 h-40 custom-shadow mx-4 flex-col bg-gray-200 items-center rounded-lg border shadow-2xl md:flex-row md:max-w-xl hover:bg-gray-100 hover:cursor-pointer">
                   <div className="relative overflow-hidden border border-slate-200 h-32 rounded-lg w-24">
                     <Image
                       src={"https://picsum.photos/301/300"}
@@ -45,7 +45,7 @@ export default function Pricing(props: PricingProps): ReactElement {
         </div>
       </div>
 
-      <div className="pt-8 text-center text-white text-2xl mt-8">{`${allBarbers[barberIndex]?.name}'s Haircuts`}</div>
+      <div className="pt-4 text-center text-white text-2xl">{`${allBarbers[barberIndex]?.name}'s Haircuts`}</div>
 
       <div className="flex justify-center w-100">
         <table className="border-gray-700 border-2 shadow-2xl">
