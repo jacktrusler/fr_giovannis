@@ -34,8 +34,9 @@ export function Barber(props: BarberProps): ReactElement {
 
       <div className="flex w-100 justify-center">
         <div className="pt-4 text-center" style={{width: 600}}>
-        <div className={`text-3xl pt-8 text-blue-600`}>
+        <div className={`flex flex-col text-3xl pt-8 text-blue-600`}>
           {name}
+          <span className="text-xl text-blue-400">{title}</span>
         </div>
           <blockquote>
             <p className="text-xl text-blue-100">

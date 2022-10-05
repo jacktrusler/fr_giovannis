@@ -87,6 +87,7 @@ function HomePage({ barbers }: { barbers: BarberData[] }) {
       {clickedBarber ? (
         <Barber
           name={clickedBarber.name}
+          title={clickedBarber.title}
           description={clickedBarber.description}
           pictureSrc={clickedBarber.pictureSrc}
         />

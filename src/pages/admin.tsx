@@ -3,17 +3,17 @@ import { useState, useEffect } from 'react';
 import { PriceCard } from '../components/Pricing/PriceCard';
 import {PriceCardEditable, PriceData} from '../components/Pricing/PriceCardEditable';
 import {useDispatch, useSelector} from 'react-redux'
-import { addBarberPrice, fetchBarbers , selectBarber} from '../features/barbers/barbersSlice';
+import { fetchBarbers } from '../features/barbers/barbersSlice';
 import {AppDispatch, RootState} from '../features/store';
 import {BarbersScheme, PriceScheme} from '../mongoDB/model/barbers';
 import axios from 'axios';
 import { PriceCardModal } from '../components/Pricing/PriceCardModal';
+import {Barber} from '../components/Barbers/Barber';
 
 export default function admin() {
   const [anotherPrice, setAnotherPrice] = useState<boolean>(false)
   const [barberIndex, setBarberIndex] = useState<number>(0);
 
-  const selectedBarber = useSelector((state: RootState) => state.barbers.selectedBarber)
   const barbersStatus = useSelector((state: RootState) => state.barbers.status)
   const allBarbers = useSelector((state: RootState) => state.barbers.allBarbers)
   const dispatch = useDispatch() as AppDispatch;
@@ -25,43 +25,82 @@ export default function admin() {
   }, [])
 
   async function addPrice(newPriceCard: PriceData){
-    if (selectedBarber){
-      const newPrices = [...selectedBarber.prices, newPriceCard]
+    if (allBarbers[barberIndex]){
+      const newPrices = [...allBarbers[barberIndex].prices, newPriceCard]
       const putReq = {
-        ...selectedBarber,
+        ...allBarbers[barberIndex],
         prices: newPrices, 
       }
       const data = await axios.put(
-        `http://localhost:3000/api/barbers/?barberId=${selectedBarber._id}`, 
+        `http://localhost:3000/api/barbers/?barberId=${allBarbers[barberIndex]._id}`, 
         putReq
       )
+      if (data) {
+        dispatch(fetchBarbers())
+      }
     }
     setAnotherPrice(false)
   }
 
-  console.log(allBarbers[0])
+  async function deleteBarber(id: string){
+    const data = await axios.delete(`http://localhost:3000/api/barbers/?barberId=${id}`)
+    if (data) {
+      dispatch(fetchBarbers())
+    }
+  }
+
   return (
     <div>
-      <h2 className="border-b-2 text-2xl mt-28">Giovanni's Admin Page</h2>
-      <div className='border-b-2'>
-        <h2 className="text-2xl">Add/Remove Barber</h2>
+      <h2 className="border-b-2 text-center text-4xl mt-28">Giovanni's Admin Page</h2>
+      <div className='flex flex-col py-8 items-center border-b-2'>
+        <h2 className="text-2xl">Add Barber</h2>
         <SignUpForm />
       </div>
 
-      <div className='border-b-2'>
-        <h2 className="text-2xl">Select Barber</h2>
-        {allBarbers.map((barber: BarbersScheme, index: number) => {
-          return (
-            <div key={index}>
-              <button 
-                className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg"
-                onClick={() => setBarberIndex(index)}>
-                {index + 1}. {barber.name}
-              </button>
-            </div>
-          )
-        }
-        )}
+      <div className='flex justify-center border-b-2'>
+        <div className='w-80'>
+          <h2 className="text-2xl">Select/Delete Barber</h2>
+          {allBarbers.map((barber: BarbersScheme, index: number) => {
+            return (
+              <div className='flex' key={index}>
+                <button 
+                  className="flex justify-between p-4 w-56 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg"
+                  onClick={() => setBarberIndex(index)}>
+                  {index + 1}. {barber.name}
+                </button>
+                <i 
+                  className='flex border border-red-400 p-4 hover:cursor-pointer self-center fa-solid fa-trash-can text-red-500'
+                  onClick={() => deleteBarber(barber._id)}
+                ></i>
+              </div>
+            )
+          }
+          )}
+        </div>
+
+        <div className='flex flex-col'>
+          <h2 className="text-2xl">Edit Barber</h2>
+          <label>Name</label>
+          <input 
+            className='flex justify-between p-4 w-56 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg' 
+            placeholder={allBarbers[barberIndex]?.name}></input>
+          <label>Title</label>
+          <input 
+            className='flex justify-between p-4 w-56 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg'
+            placeholder={allBarbers[barberIndex]?.title}></input>
+          <label>Description</label>
+          <textarea 
+            className='flex justify-between p-4 w-64 h-40 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-lg'
+            placeholder={allBarbers[barberIndex]?.description}></textarea>
+        </div>
+      </div>
+
+      <div className='bg-white border-b-2'>
+        <Barber 
+          name={allBarbers[barberIndex]?.name}
+          description={allBarbers[barberIndex]?.description}
+          title={allBarbers[barberIndex]?.title}
+          />
       </div>
 
       {/* <div className='border-b-2'> */}

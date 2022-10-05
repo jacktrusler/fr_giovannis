@@ -29,39 +29,7 @@ export const fetchBarbers = createAsyncThunk('prices/fetchBarbers', async () => 
 const barbersSlice = createSlice({
   name: 'prices',
   initialState,
-  reducers: {
-    selectBarber(state, action) {
-      state.selectedBarber = action.payload; 
-    },
-    updateBarberPrice(state, action) {
-      if (state.selectedBarber !== undefined){
-        const priceIndex = 
-          state.selectedBarber.prices.findIndex((price: any) => price._id === action.payload._id)
-        if (priceIndex !== -1){
-          state.selectedBarber.prices[priceIndex] = action.payload
-        }
-      }
-    },
-    deleteBarberPrice(state, action) {
-      console.log(action.payload)
-      if (state.selectedBarber !== undefined){
-        const priceIndex = 
-          state.selectedBarber.prices.findIndex((price: any) => price._id === action.payload._id)
-        if (priceIndex !== -1){
-          state.selectedBarber.prices.splice(priceIndex, 1)
-        }
-      }
-    },
-    addBarberPrice(state, action) {
-      const index = state.allBarbers.findIndex((barber: BarbersScheme) => barber._id === action.payload._id)
-      if (index !== -1){
-        state.allBarbers[index].prices = action.payload.prices
-        if (state.selectedBarber !== undefined) {
-          state.selectedBarber.prices = action.payload.prices
-        } 
-      }
-    }
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchBarbers.pending, (state) => {
@@ -83,5 +51,4 @@ const barbersSlice = createSlice({
   }
 })
 
-export const {selectBarber, updateBarberPrice, addBarberPrice, deleteBarberPrice} = barbersSlice.actions
 export default barbersSlice.reducer

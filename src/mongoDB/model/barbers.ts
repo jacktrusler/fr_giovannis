@@ -12,7 +12,7 @@ export interface BarbersScheme{
   __v: number;
   name?: string;
   title?: string;
-  discription?: string;
+  description?: string;
   email?: string;
   imgUri?: string;
   prices: PriceScheme[]

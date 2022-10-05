@@ -1,7 +1,7 @@
 import { ReactElement, useState } from "react";
 import axios from 'axios'
 import {BarbersScheme} from "../../mongoDB/model/barbers";
-import {deleteBarberPrice, updateBarberPrice} from "../../features/barbers/barbersSlice";
+import {fetchBarbers} from "../../features/barbers/barbersSlice";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "../../features/store";
 
@@ -36,12 +36,12 @@ export function PriceCardEditable(props: PriceProps): ReactElement {
   async function submitChanges(){
     console.log(priceCard)
     const data = await axios.put(`http://localhost:3000/api/prices/?barberId=${currentBarber._id}&priceId=${_id}`, priceCard)
-    dispatch(updateBarberPrice(priceCard))
+    dispatch(fetchBarbers())
   }
 
   async function deleteCard(){
     const data = await axios.delete(`http://localhost:3000/api/prices/?barberId=${currentBarber._id}&priceId=${_id}`)
-    dispatch(deleteBarberPrice(priceCard))
+    dispatch(fetchBarbers())
   }
 
   return (
