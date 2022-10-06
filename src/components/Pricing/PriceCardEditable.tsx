@@ -45,7 +45,7 @@ export function PriceCardEditable(props: PriceProps): ReactElement {
   }
 
   return (
-        <td className="flex w-80 bg-gray-600 shadow-xl mb-1 rounded">
+        <td className="flex w-80 bg-gray-600 shadow-xl text-black mb-1 rounded">
         <textarea 
           className="flex w-36 items-center pl-2 pt-1 text-md pr-2 border border-black w-28 h-20 font-semibold tracking-tight"
           placeholder={haircut}
