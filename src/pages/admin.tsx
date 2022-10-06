@@ -144,7 +144,7 @@ export default function admin() {
         <div className="py-8 flex flex-wrap justify-center w-100">
 
           <div>
-            <table className="border-gray-700 border-2 shadow-2xl mx-8">
+            <table className="border-gray-700 border-2 shadow-2xl">
               <tbody>
                 {allBarbers[barberIndex]?.prices.map((price: PriceScheme) => (
                   <tr key={price._id + price.haircut} className="w-100 bg-gray-700 flex justify-center">
@@ -165,7 +165,7 @@ export default function admin() {
               <tbody>
                 {allBarbers[barberIndex]?.prices.map((price: PriceScheme) => {
                   return (
-                  <tr key={price._id + price.haircut} className="w-100 text-black bg-gray-700 flex justify-center">
+                  <tr key={price._id + price.haircut} className="w-100 bg-gray-700 flex justify-center">
                     <PriceCardEditable 
                       currentBarber={allBarbers[barberIndex]}
                       _id={price._id}
@@ -192,7 +192,7 @@ export default function admin() {
                       onClick={() => {
                           setAnotherPrice(true)}
                       }
-                        className="hover:cursor-pointer text-black border-2 border-green-500 flex flex-col items-center w-96 h-16 bg-green-100">
+                        className="hover:cursor-pointer text-black border-2 border-green-500 flex flex-col items-center w-80 h-16 bg-green-100">
                       <div 
                         className='w-60 text-center h-8'
                       >Add another price</div>

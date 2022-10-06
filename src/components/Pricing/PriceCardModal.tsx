@@ -25,7 +25,7 @@ export function PriceCardModal(props: PriceProps): ReactElement {
     description,
   })
   return (
-        <td className="text-black flex w-96 bg-gray-600 shadow-xl mb-1 rounded">
+        <td className="text-black flex w-80 bg-gray-600 shadow-xl mb-1 rounded">
           <textarea 
           className="flex w-36 items-center pl-2 pt-1 text-md pr-2 border-2 border-green-500 w-28 h-20 font-semibold tracking-tight"
           placeholder={haircut}

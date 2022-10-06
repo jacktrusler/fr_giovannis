@@ -10,7 +10,7 @@ export function PriceCard(props: PriceScheme): ReactElement {
   } = props
 
   return (
-        <td className="flex justify-between w-96 bg-gray-600 shadow-xl mb-1 rounded">
+        <td className="flex justify-between w-80 bg-gray-600 shadow-xl mb-1 rounded">
       <div>
             <p className="flex w-32 items-center pl-4 pr-2 pt-1 text-md border-gray-400 border-r-4 border-double w-28 h-20 font-semibold tracking-tight text-gray-100">{haircut}</p>
       </div>
