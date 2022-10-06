@@ -141,10 +141,10 @@ export default function admin() {
 
       <div id="pricing" className='anchor'></div>
       <div>
-        <div className="py-8 flex justify-center w-100">
+        <div className="py-8 flex flex-wrap justify-center w-100">
 
           <div>
-            <table className="border-gray-700 border-2 shadow-2xl mr-8">
+            <table className="border-gray-700 border-2 shadow-2xl mx-8">
               <tbody>
                 {allBarbers[barberIndex]?.prices.map((price: PriceScheme) => (
                   <tr key={price._id + price.haircut} className="w-100 bg-gray-700 flex justify-center">
