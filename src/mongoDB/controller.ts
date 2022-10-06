@@ -7,6 +7,7 @@ export async function getBarbers(req: any, res: any) {
 
     if(!barbers) return res.status(404).json({error: "Data not found."})
     res.status(200).json(barbers)
+    res.end()
   } catch {
     res.status(404).json( {error: "Error While Fetching Data"})
   }  
