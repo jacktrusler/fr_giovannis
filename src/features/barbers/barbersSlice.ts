@@ -18,7 +18,7 @@ const initialState: ReduxBarbersState  = {
 
 export const fetchBarbers = createAsyncThunk('prices/fetchBarbers', async () => {
   try {
-    const response = await axios.get('http://localhost:4000/api/barbers')
+    const response = await axios.get('api/barbers')
     return response.data
   } 
   catch (err) {

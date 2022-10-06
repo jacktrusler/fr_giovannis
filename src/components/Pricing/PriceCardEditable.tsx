@@ -35,12 +35,12 @@ export function PriceCardEditable(props: PriceProps): ReactElement {
 
   async function submitChanges(){
     console.log(priceCard)
-    const data = await axios.put(`http://localhost:4000/api/prices/?barberId=${currentBarber._id}&priceId=${_id}`, priceCard)
+    const data = await axios.put(`api/prices/?barberId=${currentBarber._id}&priceId=${_id}`, priceCard)
     dispatch(fetchBarbers())
   }
 
   async function deleteCard(){
-    const data = await axios.delete(`http://localhost:4000/api/prices/?barberId=${currentBarber._id}&priceId=${_id}`)
+    const data = await axios.delete(`api/prices/?barberId=${currentBarber._id}&priceId=${_id}`)
     dispatch(fetchBarbers())
   }
 

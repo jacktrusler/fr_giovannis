@@ -32,7 +32,7 @@ export default function admin() {
       prices: newPrices, 
     }
     const data = await axios.put(
-      `http://localhost:4000/api/barbers/?barberId=${allBarbers[barberIndex]._id}`, 
+      `api/barbers/?barberId=${allBarbers[barberIndex]._id}`, 
       putReq
     )
     if (data.status === 200) {
@@ -42,7 +42,7 @@ export default function admin() {
   }
 
   async function deleteBarber(id: string){
-    const data = await axios.delete(`http://localhost:4000/api/barbers/?barberId=${id}`)
+    const data = await axios.delete(`api/barbers/?barberId=${id}`)
     if (data.status === 200) {
       dispatch(fetchBarbers())
     }
@@ -62,7 +62,7 @@ export default function admin() {
       description: description,
     }
 
-    const data = await axios.put(`http://localhost:4000/api/barbers/?barberId=${reqBody._id}`, reqBody)
+    const data = await axios.put(`api/barbers/?barberId=${reqBody._id}`, reqBody)
     if (data.status === 200) {
       dispatch(fetchBarbers())
       if (document.getElementById('edit-barber-form') !== null) {

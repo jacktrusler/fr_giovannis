@@ -1,6 +1,6 @@
 import { Barbers } from "./model/barbers"
 
-//GET: http://localhost:4000/api/barbers
+//GET: api/barbers
 export async function getBarbers(req: any, res: any) {
   try {
     const barbers = await Barbers.find({})
@@ -12,7 +12,7 @@ export async function getBarbers(req: any, res: any) {
   }  
 }
 
-//GET: http://localhost:4000/api/barbers/?barberId=id
+//GET: api/barbers/?barberId=id
 //params KEY barberId VALUE id
 export async function getSingleBarber(req: any, res: any) {
   try {
@@ -27,7 +27,7 @@ export async function getSingleBarber(req: any, res: any) {
   }  
 }
 
-//POST: http://localhost:4000/api/barbers
+//POST: api/barbers
 export async function postBarbers(req: any, res: any) {
   try {
     const barberData = req.body
@@ -41,7 +41,7 @@ export async function postBarbers(req: any, res: any) {
   }  
 }
 
-//PUT: http://localhost:4000/api/barbers/?barberId=id
+//PUT: api/barbers/?barberId=id
 //params KEY barberId VALUE id
 export async function putBarbers(req: any, res: any) {
   try {
@@ -58,7 +58,7 @@ export async function putBarbers(req: any, res: any) {
   }  
 }
 
-//PUT: http://localhost:4000/api/prices/?barberId=${barberId}&priceId=${priceId}
+//PUT: api/prices/?barberId=${barberId}&priceId=${priceId}
 //params KEY barberId VALUE id
 export async function putPrices(req: any, res: any) {
   try {
@@ -78,7 +78,7 @@ export async function putPrices(req: any, res: any) {
   }
 }
 
-//DELETE: http://localhost:4000/api/barbers/?barberId=id
+//DELETE: api/barbers/?barberId=id
 export async function deleteBarbers(req: any, res: any) {
   try {
     const {barberId} = req.query;
@@ -93,7 +93,7 @@ export async function deleteBarbers(req: any, res: any) {
   }  
 }
 
-//DELETE: http://localhost:4000/api/barbers/?barberId=${barberId}&priceId=${priceId}
+//DELETE: api/barbers/?barberId=${barberId}&priceId=${priceId}
 export async function deletePriceFromBarber(req: any, res: any) {
   try {
     const {barberId, priceId} = req.query;
