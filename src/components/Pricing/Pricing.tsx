@@ -13,11 +13,10 @@ export interface PricingProps {
 export default function Pricing(props: PricingProps): ReactElement {
   const {allBarbers, allPrices, setBarberIndex, barberIndex} = props;
   return (
-    <div className="w-100 pb-16 bg-gray-700 flex-col items-center">
+    <div className="w-100 pb-8 bg-gray-700 flex-col items-center">
       <div className="w-100 pt-8 flex-col justify-center items-center border-white border-double border-t-4 w-full">
         <div className="flex justify-center w-100">
           <div className="flex flex-wrap justify-center pb-4" style={{width: '600px'}}>
-            <div className="anchor-pricing" id="pricing"></div>
 
             {allBarbers.map((barber, index) => {
               return (

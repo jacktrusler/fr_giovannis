@@ -21,7 +21,8 @@ const Header = () => {
         <div className="flex items-end">
           <div className="h-12 text-3xl flex items-end text-white">
               <a href="#meet-the-barbers" className="hover-underline-animation ml-2 mr-5">Barbers</a>
-              <a href="#pricing" className="hover-underline-animation ml-3">Pricing</a>
+              <a href="#pricing" className="hover-underline-animation ml-3 mr-5">Pricing</a>
+              <a href="#hours" className="hover-underline-animation ml-3">Hours</a>
           </div>
         </div>
       </div>

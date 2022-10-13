@@ -27,7 +27,7 @@ const Footer = () => {
         </ul>
       </div>
     </div>
-    <div className="w-full bg-gray-900 text-center text-white">Website Designed by <a className="text-blue-200" href="https://jacktrusler.com">Jack</a></div>
+    <div className="w-full bg-gray-900 text-center text-white">Website Designed by <a className="text-blue-200" target="_blank" href="https://jacktrusler.com">Jack</a></div>
   </div>
   );
 };

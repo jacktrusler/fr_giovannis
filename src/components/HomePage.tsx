@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import cutLogo from '../../public/theCutLogo.png'
 import { Barber } from './Barbers/Barber';
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Pricing from './Pricing/Pricing';
 import BarberCard from './Barbers/BarberCard';
 import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../features/store';
 import {fetchBarbers} from '../features/barbers/barbersSlice';
+import {Hours} from './Hours/Hours';
 //import { signOut } from 'next-auth/react'
 
 function HomePage() {
@@ -90,11 +91,18 @@ function HomePage() {
         </div>
       )
       }
+      <div className="anchor" id="pricing"></div>
       <Pricing 
         allBarbers={allBarbers}
         allPrices={allBarbers[barberIndex]?.prices}
         setBarberIndex={setBarberIndex}
         barberIndex={barberIndex}
+      />
+
+      <div className="anchor" id="hours"></div>
+
+      <Hours 
+        barberIndex={barberIndex}  
       />
       <div className="w-full h-44 md:h-36 flex flex-col items-center pt-4 bg-gray-900 border-t-2 border-white">
         <a target="_blank" rel="noopener noreferrer" href="https://www.thecut.co/" className='relative overflow-hidden rounded-lg h-20 w-40 border-4 border-white'>
